@@ -1,0 +1,5 @@
+{
+    "require": {
+        "roy404/request": "^2.0"
+    }
+}

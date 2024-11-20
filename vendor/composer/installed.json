@@ -1,0 +1,53 @@
+{
+    "packages": [
+        {
+            "name": "roy404/request",
+            "version": "v2.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roycanales17/Input-Request.git",
+                "reference": "32c06a5c11e13bae2022413aaab1e37dfa175841"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roycanales17/Input-Request/zipball/32c06a5c11e13bae2022413aaab1e37dfa175841",
+                "reference": "32c06a5c11e13bae2022413aaab1e37dfa175841",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "time": "2024-10-04T09:15:54+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "App\\Http\\Requests\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robroy Canales",
+                    "email": "canales.robroy123@gmail.com"
+                }
+            ],
+            "description": "Request class provides an object-oriented way to interact with the current HTTP request being handled by your application as well as retrieve the input, and files that were submitted with the request.",
+            "keywords": [
+                "php",
+                "plugins"
+            ],
+            "support": {
+                "issues": "https://github.com/roycanales17/Input-Request/issues",
+                "source": "https://github.com/roycanales17/Input-Request/tree/v2.0"
+            },
+            "install-path": "../roy404/request"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
