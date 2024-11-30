@@ -43,7 +43,7 @@
             $content 	.=	"\t}";
 
             $file_name = "$class_name.php";
-            $directory = root."\\http\\model";
+            $directory = root."\\http\\Model";
 
             if ( $namespace ) {
                 $directory .= "$namespace";

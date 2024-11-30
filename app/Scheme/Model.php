@@ -20,6 +20,7 @@
         public static function all(): array
         {
             $object = self::object([
+                'table',
                 'primary_key',
                 'fillable'
             ]);
@@ -38,6 +39,7 @@
         public static function create(array $binds): int
         {
             $object = self::object([
+                'table',
                 'primary_key',
                 'fillable'
             ]);
@@ -56,6 +58,7 @@
         public static function replace(array $binds): int
         {
             $object = self::object([
+                'table',
                 'primary_key',
                 'fillable'
             ]);
@@ -75,6 +78,7 @@
         {
             $obj = new Eloquent();
             $object = self::object([
+                'table',
                 'primary_key',
                 'fillable'
             ]);
@@ -94,6 +98,7 @@
         public static function select(): Eloquent
         {
             $object = self::object([
+                'table',
                 'primary_key',
                 'fillable'
             ]);

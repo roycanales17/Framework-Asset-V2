@@ -189,6 +189,9 @@
                     $reflectionProperty = $reflectionClass->getProperty( $property );
                     $reflectionProperty->setAccessible( true );
                     $value = $reflectionProperty->getValue( ( new $name ) );
+                    if (!$value && $property == 'table') {
+                        $value = $reflectionClass->getShortName();
+                    }
                     $obj->register( $property, $value );
                 }
             }
