@@ -3,8 +3,8 @@
     namespace app\Handler;
 
     use App\Helper\Reflections;
-    use app\Helper\Skeleton;
-    use App\Http\Requests\Request;
+    use App\Helper\Skeleton;
+    use App\Request;
     use App\Logger;
     use Closure;
 

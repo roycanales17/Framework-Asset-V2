@@ -57,7 +57,7 @@
         }
 
         public
-        function exception(Error $exception): void
+        function exception($exception): void
         {
             $dateTime = new \DateTime();
             $divider = str_repeat('-', 80);
@@ -112,7 +112,14 @@
             $directoryPath = dirname($logFilePath);
 
             if (!file_exists($directoryPath)) {
-                mkdir($directoryPath, 0777, true);
+
+                if (!mkdir($directoryPath, 0777, true)) {
+                    if (config('development')) {
+                        die("Failed to create directory: $directoryPath");
+                    }
+                }
+
+                chmod($directoryPath, 0777);
             }
 
             if (!file_exists($logFilePath)) {

@@ -3,14 +3,16 @@
     namespace app\Helper;
 
     use App\Config;
-    use App\Http\Requests\Request;
+    use App\Request;
 
     trait Skeleton
     {
+        use Mapping;
+
         protected
         function displayError(mixed $exception = null): string
         {
-            if (!Config::get('development')) {
+            if (!config('development')) {
                 if (!file_exists($path = $this->createFullPath('error.php'))) {
                     die((new Request)->response(500)->json(['message' => "Internal Server Error!"]));
                 }

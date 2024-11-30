@@ -11,7 +11,7 @@
         function getURI(bool $fullPath = false): string
         {
             $requestUri = $_SERVER['REQUEST_URI'];
-            $basePath = Config::get('base_path');
+            $basePath = config('base_path');
             $requestURI = substr($requestUri, strlen($basePath));
             $parsedUrl = parse_url(filter_var($requestURI, FILTER_SANITIZE_URL));
             $path = isset($parsedUrl['path']) ? filter_var($parsedUrl['path'], FILTER_SANITIZE_SPECIAL_CHARS) : '';

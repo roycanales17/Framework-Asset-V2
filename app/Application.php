@@ -11,7 +11,6 @@
     use app\Helper\Reflections;
     use app\Helper\Router;
     use app\Helper\Skeleton;
-    use App\Http\Requests\Request;
     use Closure;
     use Error;
     use Exception;
@@ -37,9 +36,6 @@
         public
         static function configure(string $init = ''): self
         {
-            # Set a default constant
-            Config::set('development', Config::get('environment') == 'local');
-
             # Create new instance
             return new self($init);
         }
@@ -50,6 +46,29 @@
             $backtrace = debug_backtrace();
             $this->dir = dirname($backtrace[1][ 'file' ]);
             $this->config = trim($config, '/');
+
+            if (isset($_GET['__module__'])) {
+                $request = new Request();
+                $token = htmlspecialchars((string) $_GET['__module__'], ENT_QUOTES, 'UTF-8');
+                $components = $_SESSION['app-component'] ?? [];
+                foreach ($components as $component => $registeredToken) {
+                    if ($token === $registeredToken) {
+                        die($request->response()->html("<center><h1><b>$component</b></h1></center>"));
+                    }
+                }
+
+                if (config('development')) {
+                    die($request->response(404)->json([
+                        'message' => !$token ? "Token is required." : "`$token` is undefined",
+                        'components' => $components,
+                    ]));
+                } else {
+                    die($request->response(401)->json([
+                        'message' => "Unauthorized"
+                    ]));
+                }
+            }
+
             return $this;
         }
 
@@ -190,7 +209,25 @@
             }
 
             if ( ($res = $this->validate($path)) === true ) {
-                require_once $path;
+                $req = new Request();
+
+                if ($token = $_SERVER['HTTP_X_APP_COMPONENT'] ?? '') {
+                    $components = $_SESSION['app-component'] ?? [];
+
+                    foreach ($components as $component => $registeredToken) {
+                        if ($token === $registeredToken) {
+                            die((new $component)->ajax($req));
+                        }
+                    }
+
+                    die($req->response(400)->json("Bad Request"));
+                }
+
+                ob_start();
+                $returnValue = require_once $path;
+                $output = ob_get_clean();
+                echo $output ?: ($returnValue !== 1 ? $returnValue : '');
+
             } else {
                 echo($res);
             }
@@ -203,7 +240,7 @@
         }
 
         public
-        function render(): void
+        function render(): mixed
         {
             try {
 
@@ -212,7 +249,7 @@
                     $route = new Router($this->routes);
 
                     if ($routePath = $route->search()) {
-                        die($this->commence($this->createFullPath($routePath)));
+                        return($this->commence($this->createFullPath($routePath)));
                     }
                 }
 
@@ -223,22 +260,22 @@
 
                 // Search in files
                 if (file_exists($path = $this->createFullPath($uri))) {
-                    die($this->commence($path));
+                    return($this->commence($path));
                 } else {
                     $throw = $this->createFullPath($this->notFound);
                     if (file_exists($throw)) {
-                        die(require $throw);
+                        return(require $throw);
                     } else {
-                        die((new Request)->response(404)->json(['message' => "Page not found!"]));
+                        return((new Request)->response(404)->json(['message' => "Page not found!"]));
                     }
                 }
 
             } catch (Error|Exception|Throwable|ParseError $e) {
                 if (is_null($this->exceptions)) {
-                    die($this->displayError($e));
+                    return($this->displayError($e));
                 }
 
-                die($this->exceptions->handleException($e, (new Request)));
+                return($this->exceptions->handleException($e, (new Request)));
             }
         }
     }

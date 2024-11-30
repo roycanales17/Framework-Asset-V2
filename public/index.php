@@ -12,6 +12,19 @@
         }
     });
 
-    require root. '/vendor/autoload.php';
     require root. '/app/Standard.php';
-    require root. '/config/Kernel.php';
+
+    $autoload = root. '/vendor/autoload.php';
+    if (file_exists($autoload)) {
+        require_once $autoload;
+    }
+
+    if (defined('ARTISAN')) {
+        $cmd = new App\Command();
+        $cmd->register( "make", "components", "Generate new components class." );
+        $cmd->register( "make", "model", "Generate new model class." );
+        $cmd->register( "clear", "logs", "Remove all files from logs directory." );
+        $cmd->run( $argv );
+    } else {
+        die(require root. '/http/Kernel.php');
+    }

@@ -1,1 +1,26 @@
+# Ignore IDE-specific files
 .idea/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore logs
+logger/
+
+# Ignore composer/vendor directory (if applicable)
+vendor/
+
+# Ignore environment files (if applicable)
+.env
+
+# Ignore npm/yarn dependencies
+node_modules/
+
+# Ignore build and distribution directories
+build/
+dist/
+
+# Ignore temporary files
+*.swp
+*.log
+*.tmp

@@ -10,8 +10,9 @@
         public
         static function get(string $keyword, string $default = ''): string
         {
-            if (self::$environment) {
-                return self::$environment[$keyword] ?? $default;
+            $keyword = strtoupper($keyword);
+            if (isset(self::$environment[$keyword])) {
+                return self::$environment[$keyword];
             }
 
             $env = [];
@@ -36,7 +37,7 @@
         }
 
         public
-        static function set(string $key, mixed $value): void
+        static function define(string $key, mixed $value): void
         {
             self::$environment[$key] = $value;
         }

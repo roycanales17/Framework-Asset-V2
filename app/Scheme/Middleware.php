@@ -2,7 +2,7 @@
 
     namespace app\Scheme;
 
-    use App\Http\Requests\Request;
+    use App\Request;
 
     abstract class Middleware
     {
