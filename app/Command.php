@@ -9,6 +9,10 @@
         protected array $actions = [];
         protected string $template = "";
 
+        function __construct() {
+            error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+        }
+
         public function startup(): void
         {
             $this->title( "AVAILABLE COMMANDS" );

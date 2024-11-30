@@ -8,6 +8,12 @@
 
         function __construct( $artisan, $args )
         {
+            if (!$args) {
+                $artisan->title( 'ERROR', 31 );
+                $artisan->info( "Component name is required." );
+                return false;
+            }
+
             $this->cmd = $artisan;
             $this->create( $args );
         }
@@ -34,7 +40,7 @@
             $content 	.=	"\tclass $class_name extends Components".PHP_EOL;
             $content 	.=	"\t{".PHP_EOL;
 
-            $content 	.=	"\t\tfunction render (array \$params = []): string {".PHP_EOL.PHP_EOL;
+            $content 	.=	"\t\tfunction render(array \$params = []): string {".PHP_EOL.PHP_EOL;
             $content 	.=	"\t\t\treturn <<<HTML".PHP_EOL;
             $content 	.=	"\t\t\t\t<>".PHP_EOL;
             $content 	.=	"\t\t\t\t\t Type here...".PHP_EOL;
@@ -42,7 +48,7 @@
             $content 	.=	"\t\t\tHTML;".PHP_EOL;
             $content 	.=	"\t\t}".PHP_EOL.PHP_EOL;
 
-            $content 	.=	"\t\tfunction ajax (Request \$request): mixed {".PHP_EOL.PHP_EOL;
+            $content 	.=	"\t\tfunction ajax(Request \$request): mixed {".PHP_EOL.PHP_EOL;
             $content 	.=	"\t\t\t// Can remove this function...".PHP_EOL;
             $content 	.=	"\t\t\treturn \$request->response()->json('Response here...');".PHP_EOL;
             $content 	.=	"\t\t}".PHP_EOL;

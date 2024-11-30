@@ -8,6 +8,12 @@
 
         function __construct( $artisan, $args )
         {
+            if (!$args) {
+                $artisan->title( 'ERROR', 31 );
+                $artisan->info( "Class name is required." );
+                return false;
+            }
+
             $this->cmd = $artisan;
             $this->create( $args );
         }
