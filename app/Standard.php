@@ -86,6 +86,16 @@ function import(string $path, string $type): string {
                 return "\t<link rel='stylesheet' href='$domain/$path'>\n";
             case 'js':
                 return "\t<script src='$domain/$path'></script>\n";
+            case 'image':
+                return "\t<img src='$domain/$path' alt='Image'>\n";
+            case 'video':
+                return "\t<video controls src='$domain/$path'></video>\n";
+            case 'audio':
+                return "\t<audio controls src='$domain/$path'></audio>\n";
+            case 'font':
+                return "\t<style>@font-face { font-family: 'CustomFont'; src: url('$domain/$path'); }</style>\n";
+            case 'iframe':
+                return "\t<iframe src='$domain/$path'></iframe>\n";
             default:
                 logger::path('warning.log')->warning("`$path` Unsupported resource file type: $path");
                 return "\t<!-- Unsupported file type: $path -->\n";
