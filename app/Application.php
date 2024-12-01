@@ -252,7 +252,11 @@
                 if (!is_null($this->routes)) {
                     $route = new Router($this->routes);
 
-                    if ($routePath = $route->search()) {
+                    if ($className = $route->search('render')) {
+                        return(render($className, request()->inputs()));
+                    }
+
+                    if ($routePath = $route->search('routes')) {
                         return($this->commence($this->createFullPath($routePath)));
                     }
                 }
@@ -270,7 +274,7 @@
                     if (file_exists($throw)) {
                         return(require $throw);
                     } else {
-                        return((new Request)->response(404)->json(['message' => "Page not found!"]));
+                        return(response(404)->json(['message' => "Page not found!"]));
                     }
                 }
 

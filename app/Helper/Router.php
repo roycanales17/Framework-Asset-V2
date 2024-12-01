@@ -17,16 +17,16 @@
         }
 
         public
-        function search(): false|string
+        function search(string $property): false|string
         {
             $obj = $this->route;
             $reflection = new ReflectionClass($obj);
-            $routes = $reflection->getProperty('routes');
+            $routes = $reflection->getProperty($property);
             $routes->setAccessible(true);
             $lists = $routes->getValue($obj);
             $url = trim($this->getURI(), '/');
 
-            foreach ($lists as $uri => $path) {
+            foreach ($lists as $uri => $action) {
 
                 $matched = 0;
                 $uri = $this->URISlashes($uri);
@@ -52,7 +52,7 @@
 
                 if ($matched === count($route_uri)) {
                     request()->setParams($this->params);
-                    return $path;
+                    return $action;
                 }
             }
 

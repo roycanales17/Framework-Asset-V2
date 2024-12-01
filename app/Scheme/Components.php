@@ -16,14 +16,14 @@
         function __construct() {
             $length = strlen(get_called_class());
             $this->name = strtolower(get_called_class());
-            $this->id = bin2hex(random_bytes($length / 2));
+            $this->id = bin2hex(random_bytes(intval($length / 2)));
 
             if (!($_SESSION[self::$key] ?? false)) {
                 $_SESSION[self::$key] = [];
             }
 
             if (!($_SESSION[self::$key][$this->name] ?? false)) {
-                $_SESSION[self::$key][$this->name] = bin2hex(random_bytes(($length * 2) / 2));
+                $_SESSION[self::$key][$this->name] = bin2hex(random_bytes(intval($length * 2) / 2));
             }
 
             $this->startedTime = microtime(true);

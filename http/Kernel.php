@@ -11,13 +11,13 @@
     # Start the application
     return Application::configure('env')
         ->withPageInit(function (PageInitializer $init) {
-            $init->siteHeader('/', \http\Initializer\Web::class);
+            $init->siteHeader('/', http\Initializer\Web::class);
         })
         ->withMiddlewares(function (MiddlewaresHandler $middleware) {
             $middleware->addWebMiddleware(Cores::class);
         })
         ->withRoutes(function (RouteHandler $route) {
-            $route->render('error', 'error.php');
+            $route->page('error', 'error.php');
         })
         ->withExceptions(function (ExceptionHandler $handler) {
             $handler->handle(CustomException::class);

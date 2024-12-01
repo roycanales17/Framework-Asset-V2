@@ -5,18 +5,28 @@
     class RouteHandler
     {
         private array $routes = [];
+        private array $render = [];
 
         public
-        function render(string $uri, string $path): self
+        function page(string $uri, string $path): void
         {
-            $this->routes[trim($uri, '/')] = '/' . ltrim($path, '/');
-            return $this;
+            if (file_exists(root . 'pages/' . $path)) {
+                $this->routes[trim($uri, '/')] = '/' . ltrim($path, '/');
+            }
         }
 
         public
-        function where(string|array $pattern): self
+        function render(string $uri, string $classNAme): void
         {
-            // Todo: we can work on this in the future...
-            return $this;
+            if (class_exists($classNAme)) {
+                $this->render[trim($uri, '/')] = $classNAme;
+            }
         }
+
+        //        public
+        //        function where(string|array $pattern): self
+        //        {
+        //            // Todo: we can work on this in the future...
+        //            return $this;
+        //        }
     }
