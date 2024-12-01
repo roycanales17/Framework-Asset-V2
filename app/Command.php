@@ -26,21 +26,27 @@
 
         public function execute( array|string $input_r ): void
         {
-            $args = null;
             $input = $input_r;
-            if ( is_array( $input_r ) )
-            {
+            if ( is_array( $input_r ) ) {
                 $input = $input_r[ 1 ];
-
                 unset( $input_r[ 0 ] );
                 unset( $input_r[ 1 ] );
-
-                $args = array_values( $input_r );
             }
 
             switch ( $input )
             {
                 case 'exit':
+                    $app_port = config('APP_PORT');
+                    $pid = shell_exec("sudo lsof -t -i:$app_port");
+
+                    if (!empty($pid)) {
+                        shell_exec("sudo kill -9 $pid");
+                        $this->title( 'SUCCESS', 32 );
+                        $this->info( "Stopped server running on port $app_port." );
+                    } else {
+                        $this->title( 'SUCCESS', 32 );
+                        $this->info( "Exiting the artisan." );
+                    }
                     exit();
 
                 case 'serve':
@@ -55,7 +61,6 @@
 
                     // Output the result
                     $this->info( $output );
-
                     break;
 
                 case 'help':

@@ -1,4 +1,4 @@
 <?php
 
     define('ARTISAN', true);
-    require_once 'public/index.php';
+    include('public/index.php');
