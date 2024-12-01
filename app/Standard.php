@@ -161,8 +161,8 @@ function db(string $query, array $binds = []): Connection {
  *
  * Example Usage:
  * ```php
- * response()->json(['message' => 'Success'], 200);
- * response()->html('<h1>Success</h1>', 200);
+ * response()->json(['message' => 'Success']);
+ * response()->html('<h1>Success</h1>');
  * ```
  *
  * @param int $code Optional. The HTTP status code for the response. Default is 200.
