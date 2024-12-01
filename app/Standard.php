@@ -152,12 +152,10 @@ function db(string $query, array $binds = []): Connection {
  * for returning JSON or HTML content.
  *
  * Available Methods:
- * - `json(array $data, int $code = 200)`: Sends a JSON response.
+ * - `json(array $data)`: Sends a JSON response.
  *     - `$data` (array): The data to be encoded into JSON.
- *     - `$code` (int): The HTTP status code for the response. Defaults to 200.
- * - `html(string $content, int $code = 200)`: Sends an HTML response.
+ * - `html(string $content)`: Sends an HTML response.
  *     - `$content` (string): The HTML content of the response.
- *     - `$code` (int): The HTTP status code for the response. Defaults to 200.
  *
  * Example Usage:
  * ```php
