@@ -169,5 +169,24 @@ function db(string $query, array $binds = []): Connection {
  * @return app\Requests\Response Returns an instance of the `app\Requests\Response` class.
  */
 function response(int $code = 200): app\Requests\Response {
-    return (new Request)->response($code);
+    return request()->response($code);
+}
+
+/**
+ * Creates a new instance of the `Request` class to handle incoming HTTP requests.
+ *
+ * This function initializes a new instance of the `Request` class, which can be used to handle
+ * the data from the current HTTP request. The `Request` class provides methods to interact with
+ * request data, such as retrieving input values, headers, and other details of the request.
+ *
+ * Example Usage:
+ * ```php
+ * // Get a value from the request input
+ * $name = request()->input('name');
+ * ```
+ *
+ * @return Request Returns an instance of the `Request` class.
+ */
+function request(): Request {
+    return new Request();
 }
