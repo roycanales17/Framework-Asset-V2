@@ -135,7 +135,7 @@
         private
         function replaceWithComponents(string $rendered): string
         {
-            preg_match_all('/<([a-zA-Z][\w\.-]*)\b[^>]*>/i', $rendered, $matches);
+            preg_match_all('/<([A-Z][\w\.-]*)\b[^>]*>/', $rendered, $matches);
             $customTags = array_diff($matches[1], self::standardTags);
 
             $customTagAttributes = [];
