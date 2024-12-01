@@ -1,9 +1,10 @@
 <?php
 
 use App\Database\Connection;
-use app\DB;
-use app\Logger;
-use app\Config;
+use App\DB;
+use App\Logger;
+use App\Config;
+use App\Request;
 
 /**
  * Renders the specified component class and returns the resulting HTML.
@@ -129,7 +130,34 @@ function config(string $name, string $const = ''): string {
  *
  * @return Connection Returns an instance of the `Connection` class.
  */
-function db(string $query, array $binds = []): Connection
-{
+function db(string $query, array $binds = []): Connection {
     return db::run($query, $binds);
+}
+
+/**
+ * Creates a response instance with a specified HTTP status code.
+ *
+ * This function initializes an instance of the `app\Requests\Response` class,
+ * allowing the user to build and send HTTP responses. It provides methods
+ * for returning JSON or HTML content.
+ *
+ * Available Methods:
+ * - `json(array $data, int $code = 200)`: Sends a JSON response.
+ *     - `$data` (array): The data to be encoded into JSON.
+ *     - `$code` (int): The HTTP status code for the response. Defaults to 200.
+ * - `html(string $content, int $code = 200)`: Sends an HTML response.
+ *     - `$content` (string): The HTML content of the response.
+ *     - `$code` (int): The HTTP status code for the response. Defaults to 200.
+ *
+ * Example Usage:
+ * ```php
+ * response()->json(['message' => 'Success'], 200);
+ * response()->html('<h1>Success</h1>', 200);
+ * ```
+ *
+ * @param int $code Optional. The HTTP status code for the response. Default is 200.
+ * @return app\Requests\Response Returns an instance of the `app\Requests\Response` class.
+ */
+function response(int $code = 200): app\Requests\Response {
+    return (new Request)->response($code);
 }
