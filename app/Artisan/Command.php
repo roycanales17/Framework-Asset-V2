@@ -1,6 +1,8 @@
 <?php
 
-    namespace App;
+    namespace app\Artisan;
+
+    use App\Config;
 
     class Command
     {

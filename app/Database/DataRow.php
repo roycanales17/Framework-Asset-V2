@@ -28,6 +28,31 @@
             return $this->execute( __FUNCTION__ );
         }
 
+        function exists(): bool {
+            return $this->execute(__FUNCTION__);
+        }
+        function first(): ?array {
+            return $this->execute(__FUNCTION__);
+        }
+        function last(): ?array {
+            return $this->execute(__FUNCTION__);
+        }
+        function raw(): mixed {
+            return $this->execute(__FUNCTION__);
+        }
+        function toJson(): string {
+            return $this->execute(__FUNCTION__);
+        }
+        function getAffectedRows(): int {
+            return $this->execute(__FUNCTION__);
+        }
+        function getError(): string {
+            return $this->execute(__FUNCTION__);
+        }
+        function getColumns(): array {
+            return $this->execute(__FUNCTION__);
+        }
+
         function delete() {
             return $this->execute( __FUNCTION__ );
         }

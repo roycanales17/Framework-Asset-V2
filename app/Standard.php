@@ -125,8 +125,8 @@ function import(string $path, string $type): string {
  * // Retrieve a configuration value with a constant
  * $value = config('SOME_KEY', 'CONSTANT_VALUE');
  */
-function config(string $name, string $const = ''): string {
-    return Config::get($name, $const);
+function config(string $key, string $const = ''): string {
+    return Config::get($key, $const);
 }
 
 /**
