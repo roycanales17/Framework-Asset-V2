@@ -2,15 +2,15 @@
 
     namespace app;
 
-    use app\Handler\ExceptionHandler;
-    use app\Handler\MiddlewaresHandler;
-    use app\Handler\PageInitializer;
+    use App\Handler\ExceptionHandler;
+    use App\Handler\MiddlewaresHandler;
+    use App\Handler\PageInitializer;
     use App\Handler\RouteHandler;
-    use app\Helper\Initializer;
-    use app\Helper\Mapping;
-    use app\Helper\Reflections;
-    use app\Helper\Router;
-    use app\Helper\Skeleton;
+    use App\Helper\Initializer;
+    use App\Helper\Mapping;
+    use App\Helper\Reflections;
+    use App\Helper\Router;
+    use App\Helper\Skeleton;
     use Closure;
     use Error;
     use Exception;
@@ -48,7 +48,7 @@
             $this->config = trim($config, '/');
 
             if (isset($_GET['__module__'])) {
-                $request = new Request();
+                $request = request();
                 $token = htmlspecialchars((string) $_GET['__module__'], ENT_QUOTES, 'UTF-8');
                 $components = $_SESSION['app-component'] ?? [];
                 foreach ($components as $component => $registeredToken) {

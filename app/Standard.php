@@ -112,7 +112,7 @@ function import(string $path, string $type): string {
  * This function retrieves a value from the application's configuration using
  * the provided key. Optionally, a constant can be passed for dynamic resolution.
  *
- * @param string $name The configuration key to retrieve.
+ * @param string $key The configuration key to retrieve.
  * @param string $const (Optional) An additional constant value for lookup.
  * @return string The configuration value associated with the key, or an empty
  *                string if the key does not exist.
