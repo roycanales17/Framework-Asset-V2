@@ -24,7 +24,7 @@ use App\Request;
  * @return string The rendered HTML of the component, or a fallback message
  *                if the component class is not found.
  *
- * @see ../includes  // Link to the components directory or class for IDE navigation.
+ * @see ../includes
  *
  * @example
  * // Rendering a component with parameters
