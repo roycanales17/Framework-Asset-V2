@@ -224,7 +224,11 @@
                 }
 
                 ob_start();
-                $returnValue = require_once $path;
+                if (file_exists($path)) {
+                    $returnValue = require_once $path;
+                } else {
+                    $returnValue = response(404)->json("Not Found");
+                }
                 $output = ob_get_clean();
                 echo $output ?: ($returnValue !== 1 ? $returnValue : '');
 

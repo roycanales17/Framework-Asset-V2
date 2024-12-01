@@ -12,4 +12,11 @@
             $this->routes[trim($uri, '/')] = '/' . ltrim($path, '/');
             return $this;
         }
+
+        public
+        function where(string|array $pattern): self
+        {
+            // Todo: we can work on this in the future...
+            return $this;
+        }
     }
