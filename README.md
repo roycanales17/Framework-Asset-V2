@@ -2,7 +2,7 @@
 
 Install the bundle using Composer:
 ```
-composer create-project roy404/reduced product-name
+composer create-project roy404/reduced project-name
 ```
 
 # DOCUMENTATION
