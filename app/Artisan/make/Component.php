@@ -2,7 +2,7 @@
 
     namespace app\Artisan\Make;
 
-    class Components {
+    class Component {
 
         protected mixed $cmd;
 
