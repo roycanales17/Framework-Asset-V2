@@ -65,11 +65,11 @@ function render(string $className, array $parameters = [], Closure|null $childre
  *
  * @example
  * // Import a CSS file
- * $cssLink = import('resources/main.css');
+ * $cssLink = import('resources/main.css', 'css');
  *
  * @example
  * // Import a JS file
- * $jsScript = import('resources/app.js');
+ * $jsScript = import('resources/app.js', 'js');
  *
  * @example
  * // Handling unsupported file types
