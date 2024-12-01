@@ -11,7 +11,7 @@
             if (!$args) {
                 $artisan->title( 'ERROR', 31 );
                 $artisan->info( "Custom exception name is required." );
-                return false;
+                return;
             }
 
             $this->cmd = $artisan;

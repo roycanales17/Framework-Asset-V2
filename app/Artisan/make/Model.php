@@ -11,7 +11,7 @@
             if (!$args) {
                 $artisan->title( 'ERROR', 31 );
                 $artisan->info( "Class name is required." );
-                return false;
+                return;
             }
 
             $this->cmd = $artisan;
