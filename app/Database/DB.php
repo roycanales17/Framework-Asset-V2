@@ -1,9 +1,6 @@
 <?php
 
-    namespace app;
-
-    use App\Database\Connection;
-    use app\Database\Eloquent;
+    namespace app\Database;
 
     class DB
     {

@@ -2,8 +2,6 @@
 
     namespace app\Database;
 
-    use app\DB;
-
     class Blueprint
     {
         use DataRow;

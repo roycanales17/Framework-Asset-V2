@@ -2,8 +2,6 @@
 
     namespace app\Database;
 
-    use app\DB;
-
     class Eloquent extends Blueprint
     {
         function table( string $table ): self

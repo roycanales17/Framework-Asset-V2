@@ -82,7 +82,10 @@
 
                 $pdo = self::$pdoConnection;
                 $stmt = $pdo->prepare($query);
-                $stmt->execute($bindsValue);
+
+                if ($bindsValue) {
+                    $stmt->execute($bindsValue);
+                }
 
                 if (stripos(trim($query), 'SELECT') === 0) {
                     $this->result = $stmt->fetchAll();

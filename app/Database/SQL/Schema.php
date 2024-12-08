@@ -2,7 +2,7 @@
 
     namespace app\Database\SQL;
 
-    use app\DB as Database;
+    use app\Database\DB as Database;
 
     class Schema
     {
