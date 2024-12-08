@@ -14,7 +14,7 @@
     }
 
     # Session
-    app\Session::start();
+    app\Session::setup();
 
     # Startup Application
     if (defined('ARTISAN')) {
