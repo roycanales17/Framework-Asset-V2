@@ -115,7 +115,7 @@ function import(string $path, string $type): string {
  *
  * @param string $key The configuration key to retrieve.
  * @param string $const (Optional) An additional constant value for lookup.
- * @return string The configuration value associated with the key, or an empty
+ * @return mixed The configuration value associated with the key, or an empty
  *                string if the key does not exist.
  *
  * @example
@@ -126,7 +126,7 @@ function import(string $path, string $type): string {
  * // Retrieve a configuration value with a constant
  * $value = config('SOME_KEY', 'CONSTANT_VALUE');
  */
-function config(string $key, string $const = ''): string {
+function config(string $key, string $const = ''): mixed {
     return Config::get($key, $const);
 }
 
@@ -188,4 +188,64 @@ function response(int $code = 200): app\Requests\Response {
  */
 function request(): Request {
     return new Request();
+}
+
+/**
+ * Retrieves the IP address of the user making the request.
+ *
+ * This function checks several common headers that contain the user's IP address,
+ * including `X-Forwarded-For`, `HTTP_X_FORWARDED_FOR`, and `REMOTE_ADDR`. It will return
+ * the first valid IP address found.
+ *
+ * Example Usage:
+ * ```php
+ * $userIP = IPAddress();
+ * echo $userIP;
+ * ```
+ *
+ * @return string The IP address of the user.
+ */
+function IPAddress(): string {
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+    } elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+        $ip = $_SERVER['HTTP_X_REAL_IP'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : 'Unknown IP';
+}
+
+/**
+ * Decrypts a gzipped compressed string.
+ *
+ * This function attempts to decompress a gzipped string using `gzuncompress()`. If decompression
+ * fails, it returns `false`. The input string should be in a valid gzipped format.
+ *
+ * @param string|null $string $string The gzipped string to be decompressed.
+ *
+ * @return bool|string The decompressed string on success, or `false` if decompression fails.
+ */
+function decrypt(string|null $string): bool|string
+{
+    $result = @gzuncompress($string);
+    if ( $result === false )
+        return false;
+
+    return $result;
+}
+
+/**
+ * Compresses a string using gzip compression.
+ *
+ * This function compresses the given string using the `gzcompress()` function. The result will
+ * be a gzipped compressed version of the input string.
+ *
+ * @param string|null $string $string The string to be compressed.
+ *
+ * @return string The gzipped compressed string.
+ */
+function encrypt(string|null $string): string {
+    return gzcompress($string);
 }
