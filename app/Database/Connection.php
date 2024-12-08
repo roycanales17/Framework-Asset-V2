@@ -53,6 +53,17 @@
         {
             $this->connectionType = 'pdo';
 
+            $bindsValue = [];
+            foreach ($binds as $key => $value) {
+                if ($key[0] !== ':') {
+                    $modifiedKey = ':' . $key;
+                } else {
+                    $modifiedKey = $key;
+                }
+
+                $bindsValue[$modifiedKey] = $value;
+            }
+
             try {
                 if (!self::$pdoConnection) {
                     $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->database};charset=utf8mb4";
@@ -62,18 +73,16 @@
                         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
                         \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                         \PDO::ATTR_EMULATE_PREPARES => false,
+                        \PDO::MYSQL_ATTR_FOUND_ROWS => true,
                     ]);
 
                     // Set connection timeout to 180 seconds (3 minutes)
                     self::$pdoConnection->setAttribute(\PDO::ATTR_TIMEOUT, 180);
-
-                    // Set PDO to throw exceptions on errors
-                    self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 }
 
                 $pdo = self::$pdoConnection;
                 $stmt = $pdo->prepare($query);
-                $stmt->execute($binds);
+                $stmt->execute($bindsValue);
 
                 if (stripos(trim($query), 'SELECT') === 0) {
                     $this->result = $stmt->fetchAll();
@@ -104,8 +113,8 @@
                     // Open connection
                     self::$mySqliConnection = new \mysqli($this->host, $this->username, $this->password, $this->database, $this->port);
 
-                    // Enable exceptions for MySQLi
-                    self::$mySqliConnection->report_mode = MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT;
+                    self::$mySqliConnection->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
+                    self::$mySqliConnection->real_query("SET SESSION sql_mode='STRICT_ALL_TABLES'");
 
                     // Set connection timeout to 180 seconds (3 minutes)
                     self::$mySqliConnection->options(MYSQLI_OPT_CONNECT_TIMEOUT, 180);
@@ -113,6 +122,8 @@
                     if (self::$mySqliConnection->connect_error) {
                         throw new Exception("MySQLi Connection Error: " . self::$mySqliConnection->connect_error);
                     }
+
+                    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
                 }
 
                 $mysqli = self::$mySqliConnection;
