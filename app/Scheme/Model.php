@@ -45,7 +45,10 @@
             ]);
 
             $query = new Eloquent();
-            return $query->create($binds, $object->getFillable(), $object->getTable());
+            $reflection = new \ReflectionClass($query);
+            $method = $reflection->getMethod('create');
+            $method->setAccessible(true);
+            return $method->invoke($binds, $object->getFillable(), $object->getTable());
         }
 
         /**
@@ -64,7 +67,10 @@
             ]);
 
             $query = new Eloquent();
-            return $query->replace($binds, $object->getFillable(), $object->getTable());
+            $reflection = new \ReflectionClass($query);
+            $method = $reflection->getMethod('replace');
+            $method->setAccessible(true);
+            return $method->invoke($binds, $object->getFillable(), $object->getTable());
         }
 
         /**
