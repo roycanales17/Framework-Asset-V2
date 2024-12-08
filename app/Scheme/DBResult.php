@@ -141,13 +141,7 @@
          * @return int The number of affected rows, or 0 if no valid connection is available.
          */
         public function getAffectedRows(): int {
-            $connection = $this->link();
-            if ($connection instanceof \PDO) {
-                return $connection->rowCount();
-            } elseif ($connection instanceof \mysqli) {
-                return $connection->affected_rows;
-            }
-            return 0;
+            return ( int )$this->result;
         }
 
         /**
