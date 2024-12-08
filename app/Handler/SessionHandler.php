@@ -2,9 +2,9 @@
 
     namespace app\Handler;
 
+    use app\Database\DB;
     use app\Database\SQL\Blueprint;
     use app\Database\SQL\Schema;
-    use app\DB;
     use app\Session;
     use SessionHandlerInterface;
 

@@ -1,11 +1,11 @@
 <?php
 
-use App\Database\Connection;
-use App\DB;
-use App\Logger;
 use App\Config;
+use app\Database;
+use App\Logger;
 use App\Request;
 use app\Session;
+use App\Database\Connection;
 
 /**
  * Renders the specified component class and returns the resulting HTML.
@@ -143,7 +143,7 @@ function config(string $key, string $const = ''): mixed {
  * @return Connection Returns an instance of the `Connection` class.
  */
 function db(string $query, array $binds = []): Connection {
-    return db::run($query, $binds);
+    return Database::run($query, $binds);
 }
 
 /**
