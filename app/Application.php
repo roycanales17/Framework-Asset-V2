@@ -279,11 +279,12 @@
                 }
 
             } catch (Error|Exception|Throwable|ParseError $e) {
+                $request = response(500);
                 if (is_null($this->exceptions)) {
-                    return($this->displayError($e));
+                    return($request->html($this->displayError($e)));
                 }
 
-                return($this->exceptions->handleException($e, (new Request)));
+                return($request->html($this->exceptions->handleException($e, (new Request))));
             }
         }
     }
