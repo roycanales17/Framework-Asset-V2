@@ -9,6 +9,7 @@
         private string $id;
         private string $token;
         private string $name;
+        private string $parser;
         private float $startedTime;
         private static string $key = 'app-component';
 
@@ -28,6 +29,7 @@
 
             $this->startedTime = microtime(true);
             $this->token = $_SESSION[self::$key][$this->name];
+            $this->parser = config('HTML_PARSER', 'dom');
         }
 
         protected

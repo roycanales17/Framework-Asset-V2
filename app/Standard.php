@@ -81,7 +81,7 @@ function import(string $path, string $type): string {
 
         switch ($type) {
             case 'icon':
-                return "\t<link rel='icon' href='$domain/$path'>\n";
+                return "\t<link rel='icon' href='$domain/$path' type='image/x-icon'>\n";
             case 'css':
                 return "\t<link rel='stylesheet' href='$domain/$path'>\n";
             case 'js':
