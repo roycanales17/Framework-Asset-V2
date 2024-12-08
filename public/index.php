@@ -1,7 +1,6 @@
 <?php
 
-    # Session
-    session_start();
+    # Global constant
     define('root', dirname(__DIR__));
 
     # Class Importer
@@ -13,6 +12,9 @@
             require_once root . $file;
         }
     }
+
+    # Session
+    app\Session::start();
 
     # Startup Application
     if (defined('ARTISAN')) {
