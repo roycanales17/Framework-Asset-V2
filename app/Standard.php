@@ -5,6 +5,7 @@ use App\DB;
 use App\Logger;
 use App\Config;
 use App\Request;
+use app\Session;
 
 /**
  * Renders the specified component class and returns the resulting HTML.
@@ -227,8 +228,7 @@ function IPAddress(): string {
  *
  * @return bool|string The decompressed string on success, or `false` if decompression fails.
  */
-function decrypt(string|null $string): bool|string
-{
+function decrypt(string|null $string): bool|string {
     $result = @gzuncompress($string);
     if ( $result === false )
         return false;
@@ -248,4 +248,35 @@ function decrypt(string|null $string): bool|string
  */
 function encrypt(string|null $string): string {
     return gzcompress($string);
+}
+
+/**
+ * Retrieve a value from the session storage.
+ *
+ * @param string $name The key of the session variable to retrieve.
+ * @return mixed The value of the session variable, or null if not set.
+ */
+function session(string $name): mixed {
+    return Session::get($name);
+}
+
+/**
+ * Escape special characters in a string for safe usage.
+ *
+ * @param string $string The input string to escape.
+ * @param bool $trim Optional. Whether to trim the string. Default is true.
+ * @return string The escaped (and optionally trimmed) string.
+ */
+function esc(string $string, bool $trim = true): string {
+    $string = str_replace(
+        [ "\\", "\x00", "\n", "\r", "'", '"', "\x1a" ],
+        [ "\\\\", "\\0", "\\n", "\\r", "\\'", '\\"', "\\Z" ],
+        $string
+    );
+
+    if ($trim) {
+        $string = trim($string);
+    }
+
+    return $string;
 }
