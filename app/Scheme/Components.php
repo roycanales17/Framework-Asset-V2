@@ -75,17 +75,14 @@
 
             foreach ($matches as $match) {
                 $originalFunc = $match[1];
-
-                if (!preg_match('/^[a-f0-9]{20}$/i', $originalFunc)) {
-                    $encryptedFunc = $this->moduleEncryptedAction($originalFunc);
-                    $rendered = preg_replace_callback(
-                        '/(?:\$\$|this)\.listen\s*\(\s*["\']' . preg_quote($originalFunc, '/') . '["\']/',
-                        function ($matches) use ($encryptedFunc, $originalFunc) {
-                            return str_replace($originalFunc, $encryptedFunc, $matches[0]);
-                        },
-                        $rendered
-                    );
-                }
+                $encryptedFunc = $this->moduleEncryptedAction($originalFunc);
+                $rendered = preg_replace_callback(
+                    '/(?:\$\$|this)\.listen\s*\(\s*["\']' . preg_quote($originalFunc, '/') . '["\']/',
+                    function ($matches) use ($encryptedFunc, $originalFunc) {
+                        return str_replace($originalFunc, $encryptedFunc, $matches[0]);
+                    },
+                    $rendered
+                );
             }
             return $rendered;
         }
@@ -224,9 +221,12 @@
         private
         function moduleEncryptedAction($string): string
         {
-            $combined = $string . $this->id . $this->token;
-            $hash = hash('sha256', $combined);
-            return substr($hash, 0, 20);
+            if (!preg_match('/^[a-f0-9]{20}$/i', $string)) {
+                $combined = $string . $this->id . $this->token;
+                $hash = hash('sha256', $combined);
+                return substr($hash, 0, 20);
+            }
+            return $string;
         }
 
         public
