@@ -11,7 +11,9 @@
         private string $name;
         private string $parser;
         private float $startedTime;
+        private array $actions = [];
         private static string $key = 'app-component';
+        protected array $events = [];
 
         public
         function __construct() {
@@ -30,6 +32,10 @@
             $this->startedTime = microtime(true);
             $this->token = $_SESSION[self::$key][$this->name];
             $this->parser = config('HTML_PARSER', 'dom');
+
+            foreach ($this->events as $event) {
+                $this->actions[$event] = $this->moduleEncryptedAction($event);
+            }
         }
 
         protected
@@ -244,5 +250,11 @@
                 'message' => 'Bad Request',
                 'payload' => $request->except(['__token__'])
             ]);
+        }
+
+        public
+        function getEvents(): array
+        {
+            return $this->actions;
         }
     }

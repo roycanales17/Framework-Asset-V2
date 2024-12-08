@@ -36,7 +36,7 @@ use App\Request;
  *     return '<div>Nested content</div>';
  * });
  */
-function render(string $className, array $parameters = [], Closure|null $children = null): string {
+function render(string $className, array $parameters = [], Closure|null $children = null, null|array &$events = []): string {
     if (class_exists($className) || class_exists($className = 'includes\\' . $className)) {
         $component = new $className();
         if ($children) {
@@ -44,6 +44,7 @@ function render(string $className, array $parameters = [], Closure|null $childre
                 $parameters['children'] = $content;
             }
         }
+        $events = $component->getEvents();
         return $component->build($component->render($parameters));
     }
     Logger::path('warning.log')->warning("`$className` class component is not found.");
