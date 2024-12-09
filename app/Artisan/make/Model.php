@@ -38,8 +38,6 @@
             $content 	.=	"\t{".PHP_EOL;
             $content 	.=	"\t\t".'protected string $table = "'.strtolower( $class_name ).'";'.PHP_EOL;
             $content 	.=	"\t\t".'protected array $fillable = [];'.PHP_EOL.PHP_EOL;
-            $content 	.=	"\t\tfunction __construct() {".PHP_EOL.PHP_EOL;
-            $content 	.=	"\t\t}".PHP_EOL;
             $content 	.=	"\t}";
 
             $file_name = "$class_name.php";
