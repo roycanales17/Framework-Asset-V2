@@ -15,36 +15,36 @@
             return $this->getInput();
         }
 
-        public function input( string $name ): mixed {
-            return $this->getInput( $name );
+        public function input( string $input ): mixed {
+            return $this->getInput( $input );
         }
 
-        public function query( string $name ): mixed
+        public function query( string $input ): mixed
         {
             $get = $this->inputPayload( 'GET' );
-            return $get[ strtolower( $name ) ] ?? '';
+            return $get[ strtolower( $input ) ] ?? '';
         }
 
-        public function post( string $name ): mixed
+        public function post( string $input ): mixed
         {
             $post = $this->inputPayload( 'POST' );
-            return $post[ strtolower( $name ) ] ?? '';
+            return $post[ strtolower( $input ) ] ?? '';
         }
 
-        public function json( string $name ): mixed
+        public function json( string $input ): mixed
         {
             $json = $this->inputPayload( 'JSON' );
-            return $json[ strtolower( $name ) ] ?? '';
+            return $json[ strtolower( $input ) ] ?? '';
         }
 
-        public function file( string $name ): mixed
+        public function file( string $input ): mixed
         {
             $file = $this->inputPayload( 'FILES' );
-            return $file[ strtolower( $name ) ] ?? '';
+            return $file[ strtolower( $input ) ] ?? '';
         }
 
-        public function has( string $key ): bool {
-            return array_key_exists( strtolower( $key ), $this->inputs() );
+        public function has( string $input ): bool {
+            return array_key_exists( strtolower( $input ), $this->inputs() );
         }
 
         public function method(): string {
@@ -136,9 +136,9 @@
             return new Response( $code );
         }
 
-        public function params( string $name = '' ): array|string {
-            if ( $name ) {
-                return self::$params[ $name ] ?? '';
+        public function params( string $input = '' ): array|string {
+            if ( $input ) {
+                return self::$params[ $input ] ?? '';
             }
             return self::$params;
         }
