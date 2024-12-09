@@ -79,6 +79,7 @@
             <script>
                 async function searchStackOverflow(query) {
                     const loader = document.getElementById('error-loader_');
+                    const listElement = document.getElementById('error-solution-links');
                     const apiUrl = 'https://api.stackexchange.com/2.3/search/advanced';
                     const params = new URLSearchParams({
                         order: 'desc',
@@ -98,7 +99,6 @@
 
                         loader.style.display = 'none';
                         const data = await response.json();
-                        const listElement = document.getElementById('error-solution-links');
 
                         if (!listElement) {
                             console.error('Element with id "error-solution-links" not found.');
@@ -123,7 +123,8 @@
                             listElement.innerHTML = '<li>No results found.</li>';
                         }
                     } catch (error) {
-                        loader.style.display = 'Something went wrong.';
+                        loader.style.display = 'none';
+                        listElement.innerHTML = '<li>Something went wrong.</li>';
                         console.error('Error:', error.message);
                     }
                 }
