@@ -71,23 +71,28 @@ class $$ {
                 body: postData.toString()
             }).then(response => {
                 if (!response.ok) {
-                    throwError(response, 'Network response was not ok');
+                    return response.text().then(errorText => {
+                        throwError({
+                            'status': response.status,
+                            'response': errorText
+                        })
+                    });
                 }
-                const contentType = response.headers.get('Content-Type');
-                if (contentType && contentType.includes('application/json')) {
-                    return response.json();
-                } else if (contentType && contentType.includes('text/html')) {
-                    return response.text();
-                } else {
-                    throwError(response, 'Unsupported response type');
-                }
+
+                return response.text().then(data => ({
+                    status: response.status,
+                    response: data
+                }));
             }).then(data => {
-                this.trigger(success, data);
+                if (data) {
+                    this.trigger(success, data);
+                }
             }).catch(error => {
                 throwError(error, 'Something went wrong.');
             }).finally(() => {
-                if (loader)
+                if (loader) {
                     this.trigger(loader, false);
+                }
             });
         } catch (e) {
             console.error(e);
