@@ -58,7 +58,6 @@ class $$ {
                 if (failed) {
                     this.trigger(failed, response);
                 }
-                this.clearConsole();
             };
 
             fetch('', {
@@ -121,7 +120,6 @@ class $$ {
                 body: JSON.stringify(payload)
             }).then(response => {
                 if (!response.ok) {
-                    this.clearConsole();
                     return response.text().then(errorText => ({
                         'status': response.status,
                         'response': errorText
@@ -363,13 +361,6 @@ class $$ {
         } catch (error) {
             console.error('Failed to parse JSON:', error.message);
             return null;
-        }
-    }
-
-    static clearConsole() {
-        console.log(window.console);
-        if(window.console) {
-            console.clear();
         }
     }
 }
