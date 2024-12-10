@@ -19,7 +19,7 @@
         function __construct() {
             $length = strlen(get_called_class());
             $this->name = strtolower(get_called_class());
-            $this->id = bin2hex(random_bytes(intval($length / 2)));
+            $this->id = "TRX_". bin2hex(random_bytes(intval($length / 2)));
 
             if (!($_SESSION[self::$key] ?? false)) {
                 $_SESSION[self::$key] = [];
