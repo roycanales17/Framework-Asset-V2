@@ -13,12 +13,17 @@
         }
     }
 
-    # Session
-    app\Session::setup();
-
     # Startup Application
     if (defined('ARTISAN')) {
+
+        # Session
+        session_start();
+
         die(require root. '/http/Terminal.php');
     } else {
+
+        # Session
+        app\Session::setup();
+
         die(require root. '/http/Kernel.php');
     }
