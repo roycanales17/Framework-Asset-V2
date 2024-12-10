@@ -212,7 +212,7 @@ function IPAddress(): string {
     } elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {
         $ip = $_SERVER['HTTP_X_REAL_IP'];
     } else {
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
     }
 
     return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : 'Unknown IP';
