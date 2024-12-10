@@ -20,7 +20,7 @@ class $$ {
 
         try {
             window.__module__ = container;
-            callback.call(this, container);
+            callback.call(this, jx(container));
             delete window.__module__;
         } catch (error) {
             this.throw(container, error);
