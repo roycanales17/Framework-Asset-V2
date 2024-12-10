@@ -25,8 +25,6 @@ class $$ {
         } catch (error) {
             this.throw(container, error);
         }
-
-        return this;
     }
 
     /**
@@ -357,13 +355,49 @@ class $$ {
 }
 
 /**
- * Creates a `jx` object wrapping the given elements.
- *
+ * Represents a utility for DOM manipulation.
  * @typedef {Object} JX
- * @property {NodeList} elements - The DOM elements wrapped by `jx`.
- *
- * @param {NodeList} elements - The DOM elements to wrap.
- * @returns {JX} - A `jx` wrapper object.
+ * @property {Function} log - Logs the elements to the console.
+ * @property {Function} addClass - Adds a class to each element in the collection.
+ * @property {Function} removeClass - Removes a class from each element in the collection.
+ * @property {Function} toggleClass - Toggles a class on each element in the collection.
+ * @property {Function} on - Attaches event listeners to each element in the collection.
+ * @property {Function} off - Removes event listeners from each element in the collection.
+ * @property {Function} trigger - Triggers a custom event on each element in the collection.
+ * @property {Function} css - Sets or retrieves CSS properties for elements.
+ * @property {Function} html - Sets or retrieves the inner HTML of elements.
+ * @property {Function} text - Sets or retrieves the text content of elements.
+ * @property {Function} val - Sets or retrieves the value of form elements.
+ * @property {Function} append - Appends content to each element in the collection.
+ * @property {Function} prepend - Prepends content to each element in the collection.
+ * @property {Function} before - Inserts content before each element in the collection.
+ * @property {Function} after - Inserts content after each element in the collection.
+ * @property {Function} find - Finds descendants of elements that match a selector.
+ * @property {Function} each - Iterates over each element in the collection and executes a callback.
+ * @property {Function} hide - Hides each element by setting `display: none`.
+ * @property {Function} show - Shows each element by resetting the `display` property.
+ * @property {Function} remove - Removes each element from the DOM.
+ * @property {Function} attr - Sets or retrieves attributes for elements.
+ * @property {Function} prop - Sets or retrieves properties for elements.
+ * @property {Function} data - Sets or retrieves data attributes for elements.
+ * @property {Function} hasClass - Checks if any element in the collection has the specified class.
+ * @property {Function} is - Checks if any element matches a selector.
+ * @property {Function} not - Filters out elements that match a selector.
+ * @property {Function} width - Gets or sets the width of elements.
+ * @property {Function} height - Gets or sets the height of elements.
+ * @property {Function} outerWidth - Retrieves the outer width of elements (includes borders).
+ * @property {Function} outerHeight - Retrieves the outer height of elements (includes borders).
+ * @property {Function} offset - Retrieves the top and left offsets of the first element.
+ * @property {Function} filter - Filters elements based on a selector or a callback.
+ * @property {Function} first - Gets the first element in the collection.
+ * @property {Function} last - Gets the last element in the collection.
+ * @property {Function} eq - Gets the element at the specified index in the collection.
+ * @property {Function} map - Maps the collection elements to a new array based on a callback.
+ * @property {Function} empty - Removes all child elements from each element in the collection.
+ * @property {Function} hover - Attaches hover event listeners for mouseenter and mouseleave.
+ * @property {Function} click - Attaches a click event listener or triggers a click event.
+ * @property {Function} focus - Sets focus on the first element in the collection.
+ * @property {Function} blur - Removes focus from the first element in the collection.
  */
 const JX = (elements) => {
     return {
