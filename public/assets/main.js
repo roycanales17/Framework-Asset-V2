@@ -352,6 +352,29 @@ class $$ {
 
         document.head.appendChild(script);
     }
+
+    /**
+     * Parses a JSON string and returns the corresponding object.
+     *
+     * This method safely parses a JSON string. It ensures the input is a valid
+     * JSON string and catches any parsing errors.
+     *
+     * @param {string} jsonString - The JSON string to parse.
+     * @returns {object|null} - The parsed object if successful, or null if the string is invalid.
+     * @throws {Error} - Throws an error if the input is not a string.
+     */
+    static json(jsonString) {
+        if (typeof jsonString !== 'string') {
+            throw new Error('Input must be a string');
+        }
+
+        try {
+            return JSON.parse(jsonString);
+        } catch (error) {
+            console.error('Failed to parse JSON:', error.message);
+            return null;
+        }
+    }
 }
 
 /**
