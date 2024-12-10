@@ -619,8 +619,7 @@ const JX = (elements) => {
                     foundElements.push(child);
                 });
             });
-            this.elements = foundElements;
-            return this;
+            return JX(foundElements);
         },
 
         empty() {
