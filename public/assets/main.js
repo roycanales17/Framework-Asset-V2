@@ -565,8 +565,7 @@ const jx = (elements) => {
                     nextElements.push(nextSibling);
                 }
             });
-            this.elements = nextElements;
-            return this;
+            return jx(nextElements);
         },
 
         find(selector) {
