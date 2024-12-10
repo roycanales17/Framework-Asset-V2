@@ -111,7 +111,7 @@
         private
         function replaceWithContainer(string $rendered): string
         {
-            $container = "<div {$this->identifier()}>";
+            $container = "<div {$this->identifier()} style='all: unset;display: contents;'>";
             $rendered = preg_replace('/<>/', $container, $rendered, 1);
             $rendered = preg_replace('/<>/', '', $rendered);
             $rendered = preg_replace_callback('/<\/>/', function() {
