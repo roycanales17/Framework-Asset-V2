@@ -557,11 +557,11 @@ const jx = (elements) => {
             return this;
         },
 
-        next() {
+        next(selector) {
             const nextElements = [];
             this.elements.forEach(element => {
                 const nextSibling = element.nextElementSibling;
-                if (nextSibling) {
+                if (nextSibling && nextSibling.matches(selector)) {
                     nextElements.push(nextSibling);
                 }
             });
