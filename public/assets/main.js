@@ -3,7 +3,7 @@ class $$ {
     /**
      * Registers a module by identifying a DOM element and invoking a callback.
      *
-     * @param {(this: Module, element: HTMLElement) => void} identifier - The ID of the DOM element to target.
+     * @param {(this: module, container: JX) => void} identifier - The ID of the DOM element to target.
      * @param {string} callback - The callback function to execute with the targeted element.
      * @throws {Error} - Throws an error if no element with the given ID is found.
      */
@@ -20,7 +20,7 @@ class $$ {
 
         try {
             window.__module__ = container;
-            callback.call(this, this.elem(`#${identifier}`));
+            callback.call(this, JX(document.querySelectorAll(`#${identifier}`)));
             delete window.__module__;
         } catch (error) {
             this.throw(container, error);
@@ -324,9 +324,9 @@ class $$ {
      */
     static elem(selector) {
         if (window.__module__) {
-            return jx(window.__module__.querySelectorAll(selector));
+            return JX(window.__module__.querySelectorAll(selector));
         }
-        return jx(document.querySelectorAll(selector));
+        return JX(document.querySelectorAll(selector));
     }
 
     /**
@@ -356,7 +356,16 @@ class $$ {
     }
 }
 
-const jx = (elements) => {
+/**
+ * Creates a `jx` object wrapping the given elements.
+ *
+ * @typedef {Object} JX
+ * @property {NodeList} elements - The DOM elements wrapped by `jx`.
+ *
+ * @param {NodeList} elements - The DOM elements to wrap.
+ * @returns {JX} - A `jx` wrapper object.
+ */
+const JX = (elements) => {
     return {
         elements,
 
@@ -565,7 +574,7 @@ const jx = (elements) => {
                     nextElements.push(nextSibling);
                 }
             });
-            return jx(nextElements);
+            return JX(nextElements);
         },
 
         find(selector) {
@@ -611,7 +620,7 @@ const jx = (elements) => {
         },
 
         not(selector) {
-            return new jx(Array.from(this.elements).filter(element => !element.matches(selector)));
+            return new JX(Array.from(this.elements).filter(element => !element.matches(selector)));
         },
 
         width(value) {
@@ -650,19 +659,19 @@ const jx = (elements) => {
         },
 
         filter(selector) {
-            return new jx(Array.from(this.elements).filter(element => element.matches(selector)));
+            return new JX(Array.from(this.elements).filter(element => element.matches(selector)));
         },
 
         first() {
-            return new jx([this.elements[0]]);
+            return new JX([this.elements[0]]);
         },
 
         last() {
-            return new jx([this.elements[this.elements.length - 1]]);
+            return new JX([this.elements[this.elements.length - 1]]);
         },
 
         eq(index) {
-            return new jx([this.elements[index]]);
+            return new JX([this.elements[index]]);
         }
     };
 };
