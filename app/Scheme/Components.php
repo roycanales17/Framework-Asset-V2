@@ -130,11 +130,7 @@
         {
             $pattern = '/((?:this|\$\$)\.ajax)\(\s*(\{.*?}|\[.*?]|["\'].*?["\']|[^)]+?)\s*\)/s';
             $replacement = '$1($2, \'' . $this->token . '\')';
-
-            if (!preg_match('/((?:this|\$\$)\.ajax)\(\s*([^,]+),/', $rendered)) {
-                $rendered = preg_replace($pattern, $replacement, $rendered);
-            }
-            return $rendered;
+			return preg_replace($pattern, $replacement, $rendered);
         }
 
         private

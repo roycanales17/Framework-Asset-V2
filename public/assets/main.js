@@ -58,6 +58,7 @@ class $$ {
                 if (failed) {
                     this.trigger(failed, response);
                 }
+                this.clearConsole();
             };
 
             fetch('', {
@@ -118,30 +119,19 @@ class $$ {
                     'X-App-Component': identifier
                 },
                 body: JSON.stringify(payload)
-            }).then(async res => {
-                if (!res.ok) {
-                    const error = new Error(res.statusText || 'Unknown Error');
-                    error.code = res.status;
-                    try {
-                        const body = await res.text();
-                        try {
-                            error.data = JSON.parse(body);
-                        } catch {
-                            error.data = body;
-                        }
-                    } catch {
-                        error.data = 'Could not read response body';
-                    }
-                    throw error;
+            }).then(response => {
+                if (!response.ok) {
+                    this.clearConsole();
+                    return response.text().then(errorText => ({
+                        'status': response.status,
+                        'response': errorText
+                    }));
                 }
-                const contentType = res.headers.get('Content-Type');
-                if (contentType && contentType.includes('application/json')) {
-                    return res.json();
-                } else if (contentType && contentType.includes('text/html')) {
-                    return res.text();
-                } else {
-                    throw new Error('Unsupported response type');
-                }
+
+                return response.text().then(data => ({
+                    status: response.status,
+                    response: data
+                }));
             });
         } catch (e) {
             console.error('Ajax error:', e);
@@ -373,6 +363,13 @@ class $$ {
         } catch (error) {
             console.error('Failed to parse JSON:', error.message);
             return null;
+        }
+    }
+
+    static clearConsole() {
+        console.log(window.console);
+        if(window.console) {
+            console.clear();
         }
     }
 }
