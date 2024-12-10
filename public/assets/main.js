@@ -557,6 +557,30 @@ const jx = (elements) => {
             return this;
         },
 
+        next() {
+            const nextElements = [];
+            this.elements.forEach(element => {
+                const nextSibling = element.nextElementSibling;
+                if (nextSibling) {
+                    nextElements.push(nextSibling);
+                }
+            });
+            this.elements = nextElements;
+            return this;
+        },
+
+        find(selector) {
+            const foundElements = [];
+            this.elements.forEach(element => {
+                const children = element.querySelectorAll(selector);
+                children.forEach(child => {
+                    foundElements.push(child);
+                });
+            });
+            this.elements = foundElements;
+            return this;
+        },
+
         empty() {
             this.elements.forEach(element => {
                 element.innerHTML = '';
