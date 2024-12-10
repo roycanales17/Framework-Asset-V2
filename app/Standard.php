@@ -280,3 +280,48 @@ function esc(string $string, bool $trim = true): string {
 
     return $string;
 }
+
+/**
+ * Encrypts a given string using AES-256-CBC encryption.
+ *
+ * This function takes a password and a key, hashes the key using SHA-256,
+ * generates a random initialization vector (IV), and then encrypts the password
+ * with the AES-256-CBC cipher method. The resulting encrypted password is then
+ * combined with the IV, encoded in base64, and returned.
+ *
+ * @param string $password The password to be encrypted.
+ * @param string $key The key to be used for encryption. It will be hashed using SHA-256.
+ *
+ * @return string The base64-encoded encrypted password along with the IV.
+ */
+function encryptString($password, $key): string {
+	$method = 'aes-256-cbc';
+	$key = hash('sha256', $key, true);
+	$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+	$encryptedPassword = openssl_encrypt($password, $method, $key, 0, $iv);
+	
+	return base64_encode($iv . $encryptedPassword);
+}
+
+/**
+ * Decrypts a given base64-encoded encrypted string with an IV using AES-256-CBC.
+ *
+ * This function takes the encrypted password with IV (base64-encoded), extracts
+ * the IV, and uses it along with the key (which is hashed with SHA-256) to decrypt
+ * the password using the AES-256-CBC cipher method.
+ *
+ * @param string $encryptedPasswordWithIv The base64-encoded string containing the encrypted password and IV.
+ * @param string $key The key to be used for decryption. It will be hashed using SHA-256.
+ *
+ * @return bool|string The decrypted password if successful, or `false` if decryption fails.
+ */
+function decryptString($encryptedPasswordWithIv, $key): bool|string {
+	$method = 'aes-256-cbc';
+	$key = hash('sha256', $key, true);
+	$decodedData = base64_decode($encryptedPasswordWithIv);
+	$ivLength = openssl_cipher_iv_length($method);
+	$iv = substr($decodedData, 0, $ivLength);
+	$encryptedPassword = substr($decodedData, $ivLength);
+	
+	return openssl_decrypt($encryptedPassword, $method, $key, 0, $iv);
+}

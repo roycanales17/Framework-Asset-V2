@@ -52,7 +52,7 @@
                 $token = htmlspecialchars((string) $_GET['__module__'], ENT_QUOTES, 'UTF-8');
                 $components = $_SESSION['app-component'] ?? [];
                 foreach ($components as $component => $registeredToken) {
-                    if ($token === $registeredToken) {
+                    if (decryptString($token, strlen($component)) === $registeredToken) {
                         die($request->response()->html("<center><h1><b>$component</b></h1></center>"));
                     }
                 }
@@ -215,7 +215,7 @@
                     $components = $_SESSION['app-component'] ?? [];
 
                     foreach ($components as $component => $registeredToken) {
-                        if ($token === $registeredToken) {
+                        if (decryptString($token, strlen($component)) === $registeredToken) {
                             die((new $component)->ajax($req));
                         }
                     }

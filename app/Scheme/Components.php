@@ -18,7 +18,7 @@
         public
         function __construct() {
             $length = strlen(get_called_class());
-            $this->name = strtolower(get_called_class());
+            $this->name = strtolower(get_class($this));
             $this->id = "TRX_". bin2hex(random_bytes(intval($length / 2)));
 
             if (!($_SESSION[self::$key] ?? false)) {
@@ -41,8 +41,15 @@
         protected
         function inputToken(): string
         {
+			$password = '';
+			$length = strlen($this->name);
+			$token = encryptString($this->token, $length);
+			
+			if (config('development')) {
+				$password = "data-pass='{$this->name}'";
+			}
             return trim(<<<HTML
-                <input type="hidden" name="__token__" value="{$this->token}" />
+                <input type="hidden" name="__token__" value="$token" data-size="$length" $password />
             HTML);
         }
 
