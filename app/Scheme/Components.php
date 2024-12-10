@@ -135,8 +135,11 @@
         private
         function replaceWithAjaxRequest(string $rendered): string
         {
+			$length = strlen($this->name);
+			$token = encryptString($this->token, $length);
+			
             $pattern = '/((?:this|\$\$)\.ajax)\(\s*(\{.*?}|\[.*?]|["\'].*?["\']|[^)]+?)\s*\)/s';
-            $replacement = '$1($2, \'' . $this->token . '\')';
+            $replacement = '$1($2, \'' . $token . '\')';
 			return preg_replace($pattern, $replacement, $rendered);
         }
 
