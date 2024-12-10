@@ -22,8 +22,11 @@
         die(require root. '/http/Terminal.php');
     } else {
 
-        # Session
-        app\Session::setup();
+        try {
+            app\Session::setup();
+            die(require root. '/http/Kernel.php');
 
-        die(require root. '/http/Kernel.php');
+        } catch (Error|Exception|Throwable|ParseError $e) {
+            die(response(500)->html((new App\Helper\Collect)->displayError($e)));
+        }
     }

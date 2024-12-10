@@ -281,10 +281,10 @@
             } catch (Error|Exception|Throwable|ParseError $e) {
                 $request = response(500);
                 if (is_null($this->exceptions)) {
-                    return($request->html($this->displayError($e)));
+                    die($request->html($this->displayError($e)));
                 }
 
-                return($request->html($this->exceptions->handleException($e, (new Request))));
+                die($request->html($this->exceptions->handleException($e, (new Request))));
             }
         }
     }

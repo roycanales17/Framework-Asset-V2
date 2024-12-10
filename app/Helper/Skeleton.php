@@ -9,7 +9,7 @@
     {
         use Mapping;
 
-        protected
+        public
         function displayError(mixed $exception = null): string
         {
             if (!config('development')) {
