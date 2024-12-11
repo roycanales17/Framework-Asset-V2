@@ -417,6 +417,7 @@ class $$ {
  * @property {(callback: (event: Event) => void) => JX} click - Attaches a click event listener or triggers a click event.
  * @property {() => JX} focus - Sets focus on the first element in the collection.
  * @property {() => JX} blur - Removes focus from the first element in the collection.
+ * @property {(content: string) => JX} replaceWith - Simply replace the element with new one.
  */
 const JX = (elements) => {
     return {
@@ -564,6 +565,22 @@ const JX = (elements) => {
             } else {
                 this.elements.forEach(element => {
                     element.innerHTML = content;
+                });
+                return this;
+            }
+        },
+
+        replaceWith(newContent) {
+            if (newContent === undefined) {
+                return this.elements[0]?.outerHTML;
+            } else {
+                this.elements.forEach(element => {
+                    element.innerHTML = newContent;
+                    element.querySelectorAll('script').forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = script.textContent;
+                        script.replaceWith(newScript);
+                    });
                 });
                 return this;
             }
