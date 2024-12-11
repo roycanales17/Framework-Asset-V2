@@ -22,7 +22,7 @@
 			$this->name = "AC_" . strtolower(get_class($this));
 			$this->id = "TRX_" . bin2hex(random_bytes(intval($length / 2)));
 			
-			$this->getComponents($length);
+			$this->setupComponent($length);
 			$this->startedTime = microtime(true);
 			
 			foreach ($this->events as $event) {
@@ -44,7 +44,7 @@
 		}
 		
 		private
-		function getComponents(int $length): void
+		function setupComponent(int $length): void
 		{
 			$components = Cache::get('APP_COMPONENTS') ?: [];
 			
