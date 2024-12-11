@@ -23,6 +23,9 @@ RUN echo '<Directory /var/www/html>' > /etc/apache2/conf-available/htaccess.conf
     && echo '</Directory>' >> /etc/apache2/conf-available/htaccess.conf \
     && a2enconf htaccess
 
+# Set session save path
+RUN echo "session.save_path = /var/lib/php/sessions" > /usr/local/etc/php/conf.d/session.ini
+
 # Copy your project into the container's web directory
 COPY ./ /var/www/html
 
