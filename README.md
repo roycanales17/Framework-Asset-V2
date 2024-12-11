@@ -49,53 +49,13 @@ A component is a reusable piece of code that encapsulates a specific part of the
    - The fragment **<>** here looks like shorthand for a React Fragment, but it's being used as a placeholder to represent multiple components grouped together without an actual wrapper element (useful for returning multiple elements).
    - PHP itself doesn't natively support a <> fragment like in React, but you can think of it as a logical grouping of elements.
 
-## Database Setup:
+## Web Setup:
 
 1. `Install Docker`: Ensure Docker and Docker Compose are installed on your system. You can download them from Docker's official website.
-2. `Create a Docker Compose File`: Create a file named docker-compose.yml in your desired directory:
 
-```yml
-version: '3.8'
-
-services:
-  mysql:
-    image: mysql:8  # You can use a specific version for better stability
-    container_name: mysql_container
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: framework
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin_container
-    restart: unless-stopped
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: admin
-      PMA_PASSWORD: admin
-    ports:
-      - "8085:80"
-
-volumes:
-  mysql_data:
-```
-
-3. `Run Docker Compose` Navigate to the directory containing your docker-compose.yml file and run:
+2. `Run Docker Compose` Navigate to the directory containing your docker-compose.yml file and run:
 ```bash
-docker-compose up -d
-```
-
-4. `Access phpmyadmin`: enter the follow link below to the browser:
-```link
-http://localhost:8085
+docker-compose up --build -d
 ```
 
 ### Docker phpmyadmin error?

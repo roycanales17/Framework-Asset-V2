@@ -1,31 +1,63 @@
 version: '3.8'
 
 services:
+  web:
+    build:
+      context: ./  # Use the current directory as the build context
+    container_name: ${APP_NAME:-web_container}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-80}:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    networks:
+      - app_network
+    environment:
+      VIRTUAL_HOST: ${APP_IP:-localhost}
+
   mysql:
     image: mysql:8  # You can use a specific version for better stability
-    container_name: mysql_container
+    container_name: ${MYSQL_CONTAINER_NAME:-mysql_container}
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: framework
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-framework}
+      MYSQL_USER: ${MYSQL_USER:-admin}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-admin}
     ports:
-      - "3307:3306"
+      - "${MYSQL_PORT:-3307}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin_container
+    container_name: ${PMA_CONTAINER_NAME:-phpmyadmin_container}
     restart: unless-stopped
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_USER: admin
-      PMA_PASSWORD: admin
+      PMA_USER: ${MYSQL_USER:-admin}
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-admin}
     ports:
-      - "8085:80"
+      - "${PMA_PORT:-8085}:80"
+    networks:
+      - app_network
+
+  memcached:
+    image: memcached:alpine
+    container_name: ${MEMCACHE_CONTAINER_NAME:-memcached_container}
+    restart: unless-stopped
+    ports:
+      - "${MEMCACHE_PORT:-11211}:11211"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
   mysql_data:
