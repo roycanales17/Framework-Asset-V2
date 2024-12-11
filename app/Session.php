@@ -41,14 +41,7 @@
         public static function start(): void
         {
             if (!self::started()) {
-                $currentSessionPath = session_save_path();
-                if (is_dir($currentSessionPath) && is_writable($currentSessionPath)) {
-                    session_start();
-                } else {
-                    if (config('development')) {
-                        die( "Session path not exist/writable: $currentSessionPath" );
-                    }
-                }
+				@session_start();
             }
         }
 
