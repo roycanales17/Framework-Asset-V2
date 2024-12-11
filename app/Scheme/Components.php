@@ -17,7 +17,7 @@
         public
         function __construct() {
 			
-			$this->startedTime = microtime(true);
+			$this->startedTime = hrtime(true);
 			$length = strlen(get_called_class());
 			
 			$this->name = "AC_" . strtolower(get_class($this));
@@ -267,9 +267,9 @@
             $rendered = $this->replaceWithAjaxRequest($rendered);
             $rendered = $this->replaceWithComponents($rendered);
 
-            $timeDuration = microtime(true) - $this->startedTime;
-            $timeMilliseconds = $timeDuration * 1000;
-            return "<!-- Time Duration: " . sprintf('%.2f', $timeMilliseconds) . " ms -->". $rendered;
+            $timeDuration = hrtime(true) - $this->startedTime;
+            $timeMilliseconds = $timeDuration / 1_000_000;
+			return "<!-- Time Duration: " . sprintf('%.2f', $timeMilliseconds) . " ms -->" . $rendered;
         }
 
         public
