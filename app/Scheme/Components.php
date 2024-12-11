@@ -2,41 +2,46 @@
 
     namespace app\Scheme;
 
-    use App\Request;
+    use App\Cache;
+	use App\Request;
 
     abstract class Components implements Modules
     {
         private string $id;
         private string $token;
         private string $name;
-        private string $parser;
         private float $startedTime;
         private array $actions = [];
-        private static string $key = 'app-component';
         protected array $events = [];
 
         public
         function __construct() {
-            $length = strlen(get_called_class());
-            $this->name = strtolower(get_class($this));
-            $this->id = "TRX_". bin2hex(random_bytes(intval($length / 2)));
-
-            if (!($_SESSION[self::$key] ?? false)) {
-                $_SESSION[self::$key] = [];
-            }
-
-            if (!($_SESSION[self::$key][$this->name] ?? false)) {
-                $_SESSION[self::$key][$this->name] = bin2hex(random_bytes(intval($length * 2) / 2));
-            }
-
-            $this->startedTime = microtime(true);
-            $this->token = $_SESSION[self::$key][$this->name];
-            $this->parser = config('HTML_PARSER', 'dom');
-
-            foreach ($this->events as $event) {
-                $this->actions[$event] = $this->moduleEncryptedAction($event);
-            }
-        }
+			
+			$length = strlen(get_called_class());
+			$components = Cache::get('APP_COMPONENTS') ?: [];
+			
+			$this->name = "AC_" . strtolower(get_class($this));
+			$this->id = "TRX_" . bin2hex(random_bytes(intval($length / 2)));
+			
+			if (empty($components)) {
+				Cache::set('APP_COMPONENTS', [], 60 * 30);
+			}
+			
+			if (!isset($components[$this->name])) {
+				$token = bin2hex(random_bytes(intval($length * 2) / 2));
+				$components[$this->name] = $token;
+				Cache::set('APP_COMPONENTS', $components, 60 * 30);
+			} else {
+				$token = $components[$this->name];
+			}
+			
+			$this->token = $token;
+			$this->startedTime = microtime(true);
+			
+			foreach ($this->events as $event) {
+				$this->actions[$event] = $this->moduleEncryptedAction($event);
+			}
+		}
 
         protected
         function inputToken(): string

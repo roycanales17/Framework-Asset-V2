@@ -99,7 +99,7 @@
 		private
 		function searchComponent($token)
 		{
-			$components = $_SESSION['app-component'] ?? [];
+			$components = Cache::get('APP_COMPONENTS') ?: [];
 			$token = htmlspecialchars((string) $token, ENT_QUOTES, 'UTF-8');
 			
 			foreach ($components as $component => $registeredToken) {
