@@ -10,6 +10,12 @@ RUN echo '<Directory /var/www/html>' > /etc/apache2/conf-available/htaccess.conf
     && echo '</Directory>' >> /etc/apache2/conf-available/htaccess.conf \
     && a2enconf htaccess
 
+# Install necessary extensions, including Memcached
+RUN apt-get update && apt-get install -y \
+    libmemcached-dev \
+    && pecl install memcached \
+    && docker-php-ext-enable memcached
+
 # Copy your project into the container's web directory
 COPY . /var/www/html
 
