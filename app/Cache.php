@@ -65,11 +65,7 @@
 		{
 			$obj = self::instance();
 			if ($obj) {
-				$result = $obj->set($key, $value, $expiration);
-				if (!$result) {
-					throw new Exception('Failed to set value in Memcache.');
-				}
-				return $result;
+				return $obj->set($key, $value, $expiration);
 			}
 			
 			return false;
@@ -86,11 +82,7 @@
 		{
 			$obj = self::instance();
 			if ($obj) {
-				$value = $obj->get($key);
-				if ($value === false) {
-					throw new Exception('Failed to retrieve value from Memcache.');
-				}
-				return $value;
+				return $obj->get($key);
 			}
 			return $default;
 		}
@@ -105,11 +97,7 @@
 		{
 			$obj = self::instance();
 			if ($obj) {
-				$result = $obj->delete($key);
-				if (!$result) {
-					throw new Exception('Failed to delete value from Memcache.');
-				}
-				return $result;
+				return $obj->delete($key);
 			}
 			
 			return false;
