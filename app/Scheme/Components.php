@@ -24,6 +24,8 @@
 			$this->id = "TRX_" . bin2hex(random_bytes(intval($length / 2)));
 			
 			$this->setupComponent($length);
+			$this->actions['__pass__'] = $this->generatePassword();
+			
 			foreach ($this->events as $event) {
 				$this->actions[$event] = $this->moduleEncryptedAction($event);
 			}
@@ -60,19 +62,25 @@
 			// Set to class property
 			$this->token = $components[$this->name];
 		}
+		
+		private
+		function generatePassword(): string
+		{
+			$length = strlen($this->name);
+			return encryptString($this->token, $length);
+		}
 
         protected
         function inputToken(): string
         {
 			$password = '';
-			$length = strlen($this->name);
-			$token = encryptString($this->token, $length);
+			$token = $this->generatePassword();
 			
 			if (config('development')) {
 				$password = "data-pass='{$this->name}'";
 			}
             return trim(<<<HTML
-                <input type="hidden" name="__token__" value="$token" data-size="$length" $password />
+                <input type="hidden" name="__token__" value="$token" $password />
             HTML);
         }
 
