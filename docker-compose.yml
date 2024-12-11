@@ -18,7 +18,7 @@ services:
 
   mysql:
     image: mysql:8  # You can use a specific version for better stability
-    container_name: ${DB_CONTAINER_NAME:-mysql_container}
+    container_name: ${DB_HOST:-mysql_container}
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-admin}
