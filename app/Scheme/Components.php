@@ -17,14 +17,13 @@
         public
         function __construct() {
 			
+			$this->startedTime = microtime(true);
 			$length = strlen(get_called_class());
 			
 			$this->name = "AC_" . strtolower(get_class($this));
 			$this->id = "TRX_" . bin2hex(random_bytes(intval($length / 2)));
 			
 			$this->setupComponent($length);
-			$this->startedTime = microtime(true);
-			
 			foreach ($this->events as $event) {
 				$this->actions[$event] = $this->moduleEncryptedAction($event);
 			}
