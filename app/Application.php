@@ -48,25 +48,7 @@
             $this->config = trim($config, '/');
 
             if (isset($_GET['__module__'])) {
-                $request = request();
-                $token = htmlspecialchars((string) $_GET['__module__'], ENT_QUOTES, 'UTF-8');
-                $components = $_SESSION['app-component'] ?? [];
-                foreach ($components as $component => $registeredToken) {
-                    if (decryptString($token, strlen($component)) === $registeredToken) {
-                        die($request->response()->html("<center><h1><b>$component</b></h1></center>"));
-                    }
-                }
-
-                if (config('development')) {
-                    die($request->response(404)->json([
-                        'message' => !$token ? "Token is required." : "`$token` is undefined",
-                        'components' => $components,
-                    ]));
-                } else {
-                    die($request->response(401)->json([
-                        'message' => "Unauthorized"
-                    ]));
-                }
+				die(response()->html("<center><h1><b>".$this->searchComponent($_GET['__module__'])."</b></h1></center>"));
             }
 
             return $this;
@@ -113,6 +95,29 @@
             $this->main = ltrim($page, '/') . '.php';
             return $this;
         }
+		
+		private
+		function searchComponent($token)
+		{
+			$req = request();
+			$components = $_SESSION['app-component'] ?? [];
+			$token = htmlspecialchars((string) $token, ENT_QUOTES, 'UTF-8');
+			
+			foreach ($components as $component => $registeredToken) {
+				if (decryptString($token, strlen($component)) === $registeredToken) {
+					return $component;
+				}
+			}
+			
+			if (config('development')) {
+				die($req->response(404)->json([
+					'message' => !$token ? "Token is required." : "`$token` is undefined",
+					'components' => $components
+				]));
+			}
+			
+			die($req->response(400)->json("Bad Request"));
+		}
 
         private
         function validate(string $filepath)
@@ -212,15 +217,8 @@
                 $req = new Request();
 
                 if ($token = $_SERVER['HTTP_X_APP_COMPONENT'] ?? '') {
-                    $components = $_SESSION['app-component'] ?? [];
-
-                    foreach ($components as $component => $registeredToken) {
-                        if (decryptString($token, strlen($component)) === $registeredToken) {
-                            die((new $component)->ajax($req));
-                        }
-                    }
-
-                    die($req->response(400)->json("Bad Request"));
+					$component = $this->searchComponent($token);
+					die((new $component)->ajax($req));
                 }
 
                 ob_start();
@@ -252,22 +250,24 @@
                 if (!is_null($this->routes)) {
                     $route = new Router($this->routes);
 
+					// Load component directly
                     if ($className = $route->search('render')) {
                         return(render($className, request()->inputs()));
                     }
 
+					// Load page directly
                     if ($routePath = $route->search('routes')) {
                         return($this->commence($this->createFullPath($routePath)));
                     }
                 }
-
-                $uri = $this->getURI();
-                if ($uri == '/') {
-                    $uri = $this->main;
+				
+				// Set default home page
+                if (($url = $this->getURI()) == '/') {
+                    $url = $this->main;
                 }
 
                 // Search in files
-                if (file_exists($path = $this->createFullPath($uri))) {
+                if (file_exists($path = $this->createFullPath($url))) {
                     return($this->commence($path));
                 } else {
                     $throw = $this->createFullPath($this->notFound);
