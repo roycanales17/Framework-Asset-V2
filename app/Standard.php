@@ -13,8 +13,12 @@ use App\Database\Connection;
  *
  * This function attempts to load and instantiate the specified component class.
  * If the class is found (either directly or by appending the `includes` namespace),
- * it will invoke the component's build method and return the rendered HTML string.
+ * it will invoke the component's `build` method and return the rendered HTML string.
  * If the class is not found, a warning is logged, and a fallback message is returned.
+ *
+ * The function also supports asynchronous rendering. When the `$asynchronous` parameter
+ * is set to `true`, the function generates an asynchronous partial loading script, allowing
+ * the component to be loaded dynamically via AJAX.
  *
  * @param string $className The name of the component class to render.
  *                          This can be either a fully qualified class name or
@@ -23,6 +27,10 @@ use App\Database\Connection;
  *                          to the component's `build` method.
  * @param Closure|null $children Optional closure to handle nested content for the component.
  *                               If provided, it will be passed as `children` to the component.
+ * @param array|null $events A reference to an array where the component's events will
+ *                           be stored if defined in the class.
+ * @param bool $asynchronous Whether to enable asynchronous rendering for the component.
+ *                           If `true`, a script is included to load the component dynamically.
  * @return string The rendered HTML of the component, or a fallback message
  *                if the component class is not found.
  *
@@ -38,7 +46,7 @@ use App\Database\Connection;
  *     return '<div>Nested content</div>';
  * });
  */
-function render(string $className, array $parameters = [], Closure|null $children = null, null|array &$events = []): string {
+function render(string $className, array $parameters = [], Closure|null $children = null, null|array &$events = [], bool $asynchronous = false): string {
     if (class_exists($className) || class_exists($className = 'includes\\' . $className)) {
         $component = new $className();
         if ($children) {
@@ -47,6 +55,21 @@ function render(string $className, array $parameters = [], Closure|null $childre
             }
         }
         $events = $component->getEvents();
+		if ($asynchronous) {
+			$pass = $events['__pass__'];
+			$target = "partial_".strlen($pass)."_".strlen($className);
+			$params = $parameters ? ",".json_encode($parameters) : "";
+			
+			return <<<HTML
+			    <div id="$target"></div>
+			    <script type='text/javascript' id="js_$target">
+			    	$$.ajax({ 'partial_load': 1$params }, '$pass').then((html) => {
+						$$.elem('#$target').replaceWith(html.response);
+						$$.elem('#js_$target').remove();
+			    	});
+			    </script>
+			HTML;
+		}
         return $component->build($component->render($parameters));
     }
     Logger::path('warning.log')->warning("`$className` class component is not found.");
