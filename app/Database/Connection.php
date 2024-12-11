@@ -113,6 +113,9 @@
 
             try {
                 if (!self::$mySqliConnection) {
+					
+					mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+					
                     // Open connection
                     self::$mySqliConnection = new \mysqli($this->host, $this->username, $this->password, $this->database, $this->port);
 
@@ -125,8 +128,6 @@
                     if (self::$mySqliConnection->connect_error) {
                         throw new Exception("MySQLi Connection Error: " . self::$mySqliConnection->connect_error);
                     }
-
-                    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
                 }
 
                 $mysqli = self::$mySqliConnection;
