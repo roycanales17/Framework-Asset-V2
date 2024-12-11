@@ -54,6 +54,12 @@ class $$ {
             if (loader)
                 this.trigger(loader, true);
 
+            if (this.isSubmitting) {
+                return;
+            }
+
+            this.isSubmitting = true;
+
             const throwError = (response, msg) => {
                 if (failed) {
                     this.trigger(failed, response);
@@ -91,6 +97,8 @@ class $$ {
                 if (loader) {
                     this.trigger(loader, false);
                 }
+
+                this.isSubmitting = false;
             });
         } catch (e) {
             console.error(e);
