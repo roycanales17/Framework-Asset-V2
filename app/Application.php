@@ -104,7 +104,7 @@
 			
 			foreach ($components as $component => $registeredToken) {
 				if (decryptString($token, strlen($component)) === $registeredToken) {
-					return $component;
+					return preg_replace('/^AC_/', '', $component);
 				}
 			}
 			

@@ -18,29 +18,48 @@
         function __construct() {
 			
 			$length = strlen(get_called_class());
-			$components = Cache::get('APP_COMPONENTS') ?: [];
 			
 			$this->name = "AC_" . strtolower(get_class($this));
 			$this->id = "TRX_" . bin2hex(random_bytes(intval($length / 2)));
 			
-			if (empty($components)) {
-				Cache::set('APP_COMPONENTS', [], 60 * 30);
-			}
-			
-			if (!isset($components[$this->name])) {
-				$token = bin2hex(random_bytes(intval($length * 2) / 2));
-				$components[$this->name] = $token;
-				Cache::set('APP_COMPONENTS', $components, 60 * 30);
-			} else {
-				$token = $components[$this->name];
-			}
-			
-			$this->token = $token;
+			$this->getComponents($length);
 			$this->startedTime = microtime(true);
 			
 			foreach ($this->events as $event) {
 				$this->actions[$event] = $this->moduleEncryptedAction($event);
 			}
+		}
+		
+		private
+		function createToken(array &$components, int $length): void
+		{
+			// Generate
+			$token = bin2hex(random_bytes(intval($length * 2) / 2));
+			
+			// Register to components
+			$components[$this->name] = $token;
+			
+			// Store to cache
+			Cache::set('APP_COMPONENTS', $components, 60 * 30);
+		}
+		
+		private
+		function getComponents(int $length): void
+		{
+			$components = Cache::get('APP_COMPONENTS') ?: [];
+			
+			// Create storage
+			if (empty($components)) {
+				Cache::set('APP_COMPONENTS', [], 60 * 30);
+			}
+			
+			// Generate token for this component
+			if (!isset($components[$this->name])) {
+				$this->createToken($components, $length);
+			}
+			
+			// Set to class property
+			$this->token = $components[$this->name];
 		}
 
         protected
