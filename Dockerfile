@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libzstd-dev \
     build-essential \
-    && docker-php-ext-install pdo pdo_mysql mysqli
+    && docker-php-ext-install pdo pdo_mysql mysqli memcached
 
 # Install Xdebug
 RUN pecl install xdebug \
