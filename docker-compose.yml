@@ -18,15 +18,15 @@ services:
 
   mysql:
     image: mysql:8  # You can use a specific version for better stability
-    container_name: ${MYSQL_CONTAINER_NAME:-mysql_container}
+    container_name: ${DB_CONTAINER_NAME:-mysql_container}
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-framework}
-      MYSQL_USER: ${MYSQL_USER:-admin}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-admin}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-admin}
+      MYSQL_DATABASE: ${DB_NAME:-framework}
+      MYSQL_USER: ${DB_USER:-admin}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-admin}
     ports:
-      - "${MYSQL_PORT:-3307}:3306"
+      - "${DB_PORT:-3307}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -39,7 +39,7 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_USER: ${MYSQL_USER:-admin}
+      PMA_USER: ${DB_USER:-admin}
       PMA_PASSWORD: ${MYSQL_PASSWORD:-admin}
     ports:
       - "${PMA_PORT:-8085}:80"
