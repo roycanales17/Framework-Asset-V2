@@ -217,7 +217,11 @@
 
                 if ($token = $_SERVER['HTTP_X_APP_COMPONENT'] ?? '') {
 					$component = $this->searchComponent($token);
-					die((new $component)->ajax($req));
+					if ($req->has('partial_load')) {
+						die(render($component, $req->except(['partial_load'])));
+					} else {
+						die((new $component)->ajax($req));
+					}
                 }
 
                 ob_start();
