@@ -115,7 +115,7 @@
 				]));
 			}
 			
-			die(response(400)->json("Bad Request"));
+			die(response(400)->json(['message' => "Bad Request"]));
 		}
 
         private
@@ -152,7 +152,7 @@
                     }
 
                     if (($res ?? true) === false) {
-                        return (new Request)->response(401)->json("Unauthorized");
+                        return (new Request)->response(401)->json(['message' => "Unauthorized"]);
                     }
                     if (http_response_code() !== 200) {
                         return $res;
@@ -224,7 +224,7 @@
                 if (file_exists($path)) {
                     $returnValue = require_once $path;
                 } else {
-                    $returnValue = response(404)->json("Not Found");
+                    $returnValue = response(404)->json(['message' => "Not Found"]);
                 }
                 $output = ob_get_clean();
                 echo $output ?: ($returnValue !== 1 ? $returnValue : '');
