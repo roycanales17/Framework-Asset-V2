@@ -99,7 +99,6 @@
 		private
 		function searchComponent($token)
 		{
-			$req = request();
 			$components = $_SESSION['app-component'] ?? [];
 			$token = htmlspecialchars((string) $token, ENT_QUOTES, 'UTF-8');
 			
@@ -110,13 +109,13 @@
 			}
 			
 			if (config('development')) {
-				die($req->response(404)->json([
+				die(response(404)->json([
 					'message' => !$token ? "Token is required." : "`$token` is undefined",
 					'components' => $components
 				]));
 			}
 			
-			die($req->response(400)->json("Bad Request"));
+			die(response(400)->json("Bad Request"));
 		}
 
         private
