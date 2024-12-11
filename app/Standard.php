@@ -1,7 +1,7 @@
 <?php
 	
-	use app\Cache;
-	use App\Config;
+use app\Cache;
+use App\Config;
 use app\Database;
 use App\Logger;
 use App\Request;
