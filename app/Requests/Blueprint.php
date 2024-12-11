@@ -211,14 +211,14 @@
             $this->payload[ "POST" ] = array_change_key_case( $_POST );
             $this->payload[ "FILES" ] = array_change_key_case( $_FILES );
             $this->payload[ "JSON" ] = array_change_key_case( json_decode( $jsonData, true ) ?? [] );
-
-            $this->payload = [
-                ...$this->payload[ "GET" ],
-                ...$this->payload[ "POST" ],
-                ...$this->payload[ "FILES" ],
-                ...$this->payload[ "JSON" ]
-            ];
-        }
+			
+			$this->payload = array_merge(
+				$this->payload["GET"] ?? [],
+				$this->payload["POST"] ?? [],
+				$this->payload["FILES"] ?? [],
+				$this->payload["JSON"] ?? []
+			);
+		}
 
         protected function setMessage( string $key, string $message = '', string|int|null $input_key = null ): void
         {
