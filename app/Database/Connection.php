@@ -15,7 +15,7 @@
         private string $database;
         private string $username;
         private string $password;
-        private string $port;
+        private int $port;
 
         /**
          * Connection constructor.
