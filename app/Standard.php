@@ -1,6 +1,7 @@
 <?php
-
-use App\Config;
+	
+	use app\Cache;
+	use App\Config;
 use app\Database;
 use App\Logger;
 use App\Request;
@@ -324,4 +325,15 @@ function decryptString($encryptedPasswordWithIv, $key): bool|string {
 	$encryptedPassword = substr($decodedData, $ivLength);
 	
 	return openssl_decrypt($encryptedPassword, $method, $key, 0, $iv);
+}
+
+/**
+ * Retrieves a cached value by its key, or returns a default value if the key does not exist.
+ *
+ * @param string $key The cache key to retrieve.
+ * @param mixed $default The default value to return if the key does not exist in the cache.
+ * @return mixed The cached value, or the default value if the cache key does not exist.
+ */
+function cache(string $key, mixed $default = false): mixed {
+	return Cache::get($key, $default);
 }
