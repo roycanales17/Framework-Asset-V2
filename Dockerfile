@@ -13,6 +13,10 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && docker-php-ext-install pdo pdo_mysql mysqli
 
+# Install Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 # Allow .htaccess overrides
 RUN echo '<Directory /var/www/html>' > /etc/apache2/conf-available/htaccess.conf \
     && echo '    AllowOverride All' >> /etc/apache2/conf-available/htaccess.conf \
