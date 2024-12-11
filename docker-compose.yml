@@ -48,7 +48,7 @@ services:
 
   memcached:
     image: memcached:alpine
-    container_name: ${MEMCACHE_CONTAINER_NAME:-memcached_container}
+    container_name: ${MEMCACHE_SERVER_NAME:-memcached_container}
     restart: unless-stopped
     ports:
       - "${MEMCACHE_PORT:-11211}:11211"
