@@ -575,11 +575,18 @@ const JX = (elements) => {
                 return this.elements[0]?.outerHTML;
             } else {
                 this.elements.forEach(element => {
-                    element.innerHTML = newContent;
-                    element.querySelectorAll('script').forEach(script => {
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = newContent;
+                    element.outerHTML = newContent;
+                    tempContainer.querySelectorAll('script').forEach(script => {
                         const newScript = document.createElement('script');
-                        newScript.textContent = script.textContent;
-                        script.replaceWith(newScript);
+                        if (script.src) {
+                            newScript.src = script.src;
+                        } else {
+                            newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        newScript.remove();
                     });
                 });
                 return this;
