@@ -149,14 +149,14 @@
         private
         function replaceWithContainer(string $rendered): string
         {
-            $container = "<div {$this->identifier()} style='all: unset;display: contents;'>";
+            $container = "<fragment {$this->identifier()} style='all: unset;display: contents;'>";
             $rendered = preg_replace('/<>/', $container, $rendered, 1);
             $rendered = preg_replace('/<>/', '', $rendered);
             $rendered = preg_replace_callback('/<\/>/', function() {
                 static $count = 0;
                 $count++;
                 if ($count === 1) {
-                    return '</div>';
+                    return '</fragment>';
                 }
                 return '';
             }, $rendered);
