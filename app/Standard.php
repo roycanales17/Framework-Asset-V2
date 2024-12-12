@@ -47,29 +47,29 @@ use App\Database\Connection;
  * });
  */
 function render(string $className, array $parameters = [], Closure|null $children = null, null|array &$events = [], bool $asynchronous = false): string {
-    if (class_exists($className) || class_exists($className = 'includes\\' . $className)) {
+    if (class_exists($className)) {
         $component = new $className();
-        if ($children) {
-            if (is_string($content = $children())) {
-                $parameters['children'] = $content;
-            }
+		$events = $component->getEvents();
+		
+        if ($children && is_string($content = $children())) {
+			$parameters['children'] = $content;
         }
-        $events = $component->getEvents();
+		
 		if ($asynchronous) {
-			$pass = $events['__pass__'];
-			$target = "partial_".strlen($pass)."_".strlen($className);
-			$params = $parameters ? ",".json_encode($parameters) : "";
+			$target = strlen($pass = $events['__pass__'])."_".strlen($className);
+			$params = json_encode(array_merge($parameters, ['partial_load' => 1]));
 			
 			return <<<HTML
-			    <div id="$target"></div>
+			    <div id="partial_$target"></div>
 			    <script type='text/javascript' id="js_$target">
-			    	$$.ajax({ 'partial_load': 1$params }, '$pass').then((html) => {
-						$$.elem('#$target').replaceWith(html.response);
+			    	$$.ajax($params, '$pass').then((html) => {
+						$$.elem('#partial_$target').replaceWith(html.response);
 						$$.elem('#js_$target').remove();
 			    	});
 			    </script>
 			HTML;
 		}
+		
         return $component->build($component->render($parameters));
     }
     Logger::path('warning.log')->warning("`$className` class component is not found.");
