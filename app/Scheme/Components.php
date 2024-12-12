@@ -277,7 +277,7 @@
 
             $timeDuration = hrtime(true) - $this->startedTime;
             $timeMilliseconds = $timeDuration / 1_000_000;
-			return "<!-- Time Duration: " . sprintf('%.2f', $timeMilliseconds) . " ms -->" . $rendered;
+			return "<!-- Time Duration: " . sprintf('%.2f', $timeMilliseconds) . " ms -->\n" . $rendered;
         }
 
         public
