@@ -60,7 +60,9 @@ function render(string $className, array $parameters = [], Closure|null $childre
 			$params = json_encode(array_merge($parameters, ['partial_load' => 1]));
 			
 			return <<<HTML
-			    <div id="partial_$target"></div>
+			    <div id="partial_$target" style='all: unset;display: contents;'>
+			    	{$component->loader()}
+			    </div>
 			    <script type='text/javascript' id="js_$target">
 			    	$$.ajax($params, '$pass').then((html) => {
 						$$.elem('#partial_$target').replaceWith(html.response);

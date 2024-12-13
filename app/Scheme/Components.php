@@ -288,6 +288,12 @@
                 'payload' => $request->except(['__token__'])
             ]);
         }
+		
+		public
+		function loader(): string
+		{
+			return '<!-- Processing -->';
+		}
 
         public
         function getEvents(): array

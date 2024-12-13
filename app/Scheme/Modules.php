@@ -51,6 +51,9 @@
 
         public
         function render(array $params = []): string;
+		
+		public
+		function loader(): string;
 
         public
         function ajax(Request $request);
