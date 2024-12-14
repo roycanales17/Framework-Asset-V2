@@ -15,7 +15,7 @@
 		public static function attempt(string $key, int $limit = 10, int $decayRate = 120): bool {
 			
 			$ip = IPAddress();
-			$cacheKey = "rate-limit-$ip-$key";
+			$cacheKey = "rate:$ip:$key";
 			$rateLimit = Cache::get($cacheKey);
 			
 			if ($rateLimit === false) {
