@@ -62,3 +62,10 @@ docker-compose up --build -d
 
 Try to disable `Docker x86_64/amd64 emulation` from docker setting.
 
+### Update your git with newer version
+
+```
+git tag -a v1.0.0 -m "Updated version to v1.0.0"
+git push origin v1.0.0
+```
+
