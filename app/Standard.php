@@ -62,13 +62,12 @@ function render(string $className, array $parameters = [], Closure|null $childre
 			return <<<HTML
 			    <div id="partial_$target" style='all: unset;display: contents;'>
 			    	{$component->loader()}
+			    	<script type='text/javascript'>
+						$$.ajax($params, '$pass').then((html) => {
+							$$.elem('#partial_$target').replaceWith(html.response);
+						});
+					</script>
 			    </div>
-			    <script type='text/javascript' id="js_$target">
-			    	$$.ajax($params, '$pass').then((html) => {
-						$$.elem('#partial_$target').replaceWith(html.response);
-						$$.elem('#js_$target').remove();
-			    	});
-			    </script>
 			HTML;
 		}
 		
