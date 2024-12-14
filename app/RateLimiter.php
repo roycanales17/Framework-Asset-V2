@@ -55,4 +55,13 @@
 			
 			return false;
 		}
+		
+		public static function perMonth(string $key, int $limit = 1): bool {
+			
+			if (self::attempt($key, $limit, 60 * 60 * 24 * 30)) {
+				return true;
+			}
+			
+			return false;
+		}
 	}
