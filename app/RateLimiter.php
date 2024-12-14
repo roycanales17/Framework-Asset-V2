@@ -10,15 +10,18 @@
 			$cacheKey = "rate-limit-$ip-$key";
 			$rateLimit = Cache::get($cacheKey);
 			
-			if (!$rateLimit) {
+			if ($rateLimit === false) {
 				Cache::set($cacheKey, $limit - 1, $decayRate);
 				return true;
 			}
 			
 			if ($rateLimit > 0) {
-				if ($expirationTime = Cache::getExpiration($cacheKey)) {
+				$expirationTime = Cache::getExpiration($cacheKey);
+				if ($expirationTime !== false) {
 					Cache::set($cacheKey, $rateLimit - 1, $expirationTime);
 					return true;
+				} else {
+					return self::attempt($key, $limit, $decayRate);
 				}
 			}
 			
