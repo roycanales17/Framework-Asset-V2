@@ -65,7 +65,11 @@
 		{
 			$obj = self::instance();
 			if ($obj) {
-				return $obj->set($key, $value, $expiration);
+				$format = [
+					'data' => $value,
+					'expires_at' => time() + $expiration,
+				];
+				return $obj->set($key, $format, $expiration);
 			}
 			
 			return false;
@@ -82,7 +86,10 @@
 		{
 			$obj = self::instance();
 			if ($obj) {
-				return $obj->get($key);
+				$data = $obj->get($key);
+				if ($data !== false) {
+					return $data['data'];
+				}
 			}
 			return $default;
 		}
@@ -123,6 +130,26 @@
 			$obj = self::instance();
 			if ($obj) {
 				return $obj->getAllKeys();
+			}
+			
+			return false;
+		}
+		
+		/**
+		 * Get the expiration time (TTL) for a specific key from Memcache.
+		 *
+		 * @param string $key
+		 * @return int|null Returns the remaining TTL in seconds, or null if the key does not exist.
+		 */
+		public static function getExpiration(string $key): ?int
+		{
+			$obj = self::instance();
+			if ($obj) {
+				$data = $obj->get($key);
+				if ($data && isset($data['expires_at'])) {
+					$ttl = $data['expires_at'] - time();
+					return max($ttl, 0);
+				}
 			}
 			
 			return false;
