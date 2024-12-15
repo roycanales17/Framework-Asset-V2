@@ -1,7 +1,8 @@
 <?php
 	
 use app\Cache;
-use App\Config;
+	use app\Carbon;
+	use App\Config;
 use app\Database;
 use App\Logger;
 use App\Request;
@@ -360,4 +361,16 @@ function decryptString($encryptedPasswordWithIv, $key): bool|string {
  */
 function cache(string $key, mixed $default = false): mixed {
 	return Cache::get($key, $default);
+}
+
+/**
+ * Get the current date and time as a Carbon instance.
+ *
+ * This function is a shorthand for creating a Carbon instance
+ * that represents the current date and time in UTC.
+ *
+ * @return app\Helper\BaseCarbon Current date and time.
+ */
+function now(): app\Helper\BaseCarbon {
+	return Carbon::now();
 }
