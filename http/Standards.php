@@ -1,15 +1,15 @@
 <?php
 	
-	use Core\Cache;
-	use Core\Carbon;
-	use Core\Config;
-	use Core\Database;
-	use Core\Logger;
-	use Core\Request;
-	use Core\Session;
-	use Database\Connection;
+use Core\Cache;
+use Core\Carbon;
+use Core\Config;
+use Core\Database;
+use Core\Logger;
+use Core\Request;
+use Core\Session;
+use Database\Connection;
 	
-	/**
+/**
  * Renders the specified component class and returns the resulting HTML.
  *
  * This function attempts to load and instantiate the specified component class.
