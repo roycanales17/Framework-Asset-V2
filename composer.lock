@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55648d24d727219dcd806c212615d39a",
+    "content-hash": "eb3a90803fc565b8a9cf570ad55075ba",
     "packages": [
         {
             "name": "roy404/reduced-core",
-            "version": "v1.0.4",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roycanales17/Reduced-Core.git",
-                "reference": "c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1"
+                "reference": "fade2e484b85a9dd95b9ccb69841e5594e6c6ff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1",
-                "reference": "c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1",
+                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/fade2e484b85a9dd95b9ccb69841e5594e6c6ff6",
+                "reference": "fade2e484b85a9dd95b9ccb69841e5594e6c6ff6",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,6 @@
                     "Core\\": "Core/",
                     "Helper\\": "Helper/",
                     "Scheme\\": "Scheme/",
-                    "Artisan\\": "Artisan/",
                     "Handler\\": "Handler/",
                     "Database\\": "Database/",
                     "Requests\\": "Requests/"
@@ -52,9 +51,9 @@
             ],
             "support": {
                 "issues": "https://github.com/roycanales17/Reduced-Core/issues",
-                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.4"
+                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.6"
             },
-            "time": "2024-12-15T03:57:51+00:00"
+            "time": "2024-12-15T04:51:31+00:00"
         }
     ],
     "packages-dev": [],
@@ -64,7 +63,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
