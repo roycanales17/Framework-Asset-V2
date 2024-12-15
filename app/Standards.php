@@ -79,6 +79,20 @@ function render(string $className, array $parameters = [], Closure|null $childre
 }
 
 /**
+ * Retrieves the component events.
+ *
+ * @param string $className
+ * @return array
+ */
+function events(string $className): array {
+	if (class_exists($className)) {
+		$component = new $className();
+		return $component->getEvents();
+	}
+	return [];
+}
+
+/**
  * Imports a file (CSS or JS) into the page.
  *
  * This function checks if the requested resource file exists in the public directory.
