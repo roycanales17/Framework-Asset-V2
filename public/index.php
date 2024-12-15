@@ -7,11 +7,7 @@
     spl_autoload_register(fn($class) => file_exists($path = root . '/' . str_replace('\\', '/', $class) . '.php') && require_once $path);
 
     # Built-In Functions
-    foreach (['/app/Standards.php','/vendor/autoload.php'] as $file) {
-        if (file_exists(root . $file)) {
-            require_once root . $file;
-        }
-    }
+	require_once root . '/vendor/autoload.php';
 
     # Startup Application
     if (defined('ARTISAN')) {
