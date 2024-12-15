@@ -215,13 +215,13 @@
 
         public function perform( array $config ): void
         {
-            $path = root. '/artisan/'.$config[ 'type' ].'/' .strtolower( $config[ 'class' ] ).'.php';
+            $path = root. '/app/artisan/'.$config[ 'type' ].'/' .strtolower( $config[ 'class' ] ).'.php';
 
             if ( file_exists( $path ) )
             {
                 require_once $path;
 
-                $class = "Artisan\\{$config[ 'type' ]}\\{$config[ 'class' ]}";
+                $class = "App\\Artisan\\{$config[ 'type' ]}\\{$config[ 'class' ]}";
                 new $class( $this, $config[ 'args' ] );
             } else {
                 throw new \Exception( "Artisan action file not exist given ($path)." );
