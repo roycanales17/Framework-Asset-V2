@@ -1,0 +1,60 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "6ec174ac999c0043f8262472092b0d14",
+    "packages": [
+        {
+            "name": "roy404/reduced-core",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roycanales17/Reduced-Core.git",
+                "reference": "d63451ccbe638d3d65d384bff2e192441c221cce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/d63451ccbe638d3d65d384bff2e192441c221cce",
+                "reference": "d63451ccbe638d3d65d384bff2e192441c221cce",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robroy Canales",
+                    "email": "canales.robroy123@gmail.com"
+                }
+            ],
+            "description": "Custom framework core.",
+            "keywords": [
+                "framework",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/roycanales17/Reduced-Core/issues",
+                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.1"
+            },
+            "time": "2024-12-15T03:21:21+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^8.0"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
