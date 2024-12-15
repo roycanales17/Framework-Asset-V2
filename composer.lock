@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb3a90803fc565b8a9cf570ad55075ba",
+    "content-hash": "f11070982602f117e50d0ea11bfe9158",
     "packages": [
         {
             "name": "roy404/reduced-core",
-            "version": "v1.0.6",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roycanales17/Reduced-Core.git",
-                "reference": "fade2e484b85a9dd95b9ccb69841e5594e6c6ff6"
+                "reference": "950aa5b79de8c72acd0d8e98b5578124cb8364f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/fade2e484b85a9dd95b9ccb69841e5594e6c6ff6",
-                "reference": "fade2e484b85a9dd95b9ccb69841e5594e6c6ff6",
+                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/950aa5b79de8c72acd0d8e98b5578124cb8364f0",
+                "reference": "950aa5b79de8c72acd0d8e98b5578124cb8364f0",
                 "shasum": ""
             },
             "require": {
@@ -25,6 +25,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "Helper/Standards.php"
+                ],
                 "psr-4": {
                     "Core\\": "Core/",
                     "Helper\\": "Helper/",
@@ -51,9 +54,9 @@
             ],
             "support": {
                 "issues": "https://github.com/roycanales17/Reduced-Core/issues",
-                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.6"
+                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.8"
             },
-            "time": "2024-12-15T04:51:31+00:00"
+            "time": "2024-12-15T10:17:21+00:00"
         }
     ],
     "packages-dev": [],
