@@ -1,6 +1,6 @@
 <?php
 
-    namespace http\Middleware;
+    namespace app\Middleware;
 
     use Core\Request;
 	use Scheme\Middleware;

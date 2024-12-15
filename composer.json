@@ -16,6 +16,6 @@
   ],
   "require": {
     "php": "^8.0",
-    "roy404/reduced-core": "^1.0.3"
+    "roy404/reduced-core": "^1.0.6"
   }
 }

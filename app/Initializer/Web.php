@@ -1,6 +1,6 @@
 <?php
 
-    namespace http\Initializer;
+    namespace app\Initializer;
     use Scheme\Initializer;
 
     class Web implements Initializer

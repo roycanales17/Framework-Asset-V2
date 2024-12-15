@@ -1,6 +1,6 @@
 <?php
 
-    namespace http\Exceptions;
+    namespace app\Exceptions;
 
     use Core\Request;
 	use Scheme\Throwable;
