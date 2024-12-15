@@ -1,7 +1,7 @@
 <?php
 
     namespace http\Initializer;
-    use app\Scheme\Initializer;
+    use Scheme\Initializer;
 
     class Web implements Initializer
     {

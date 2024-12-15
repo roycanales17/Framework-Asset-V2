@@ -23,10 +23,10 @@
     } else {
 
         try {
-            app\Session::setup();
+            Core\Session::setup();
             die(require root. '/http/Kernel.php');
 
         } catch (Error|Exception|Throwable|ParseError $e) {
-            die(response(500)->html((new App\Helper\Collect)->displayError($e)));
+            die(response(500)->html((new Helper\Collect)->displayError($e)));
         }
     }

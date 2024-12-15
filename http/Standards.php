@@ -1,15 +1,15 @@
 <?php
-
-use app\Cache;
-use app\Carbon;
-use App\Config;
-use app\Database;
-use App\Logger;
-use App\Request;
-use app\Session;
-use App\Database\Connection;
-
-/**
+	
+	use Core\Cache;
+	use Core\Carbon;
+	use Core\Config;
+	use Core\Database;
+	use Core\Logger;
+	use Core\Request;
+	use Core\Session;
+	use Database\Connection;
+	
+	/**
  * Renders the specified component class and returns the resulting HTML.
  *
  * This function attempts to load and instantiate the specified component class.
@@ -175,7 +175,7 @@ function db(string $query, array $binds = []): Connection {
 /**
  * Creates a response instance with a specified HTTP status code.
  *
- * This function initializes an instance of the `app\Requests\Response` class,
+ * This function initializes an instance of the `Requests\Response` class,
  * allowing the user to build and send HTTP responses. It provides methods
  * for returning JSON or HTML content.
  *
@@ -192,9 +192,9 @@ function db(string $query, array $binds = []): Connection {
  * ```
  *
  * @param int $code Optional. The HTTP status code for the response. Default is 200.
- * @return app\Requests\Response Returns an instance of the `app\Requests\Response` class.
+ * @return Requests\Response Returns an instance of the `Requests\Response` class.
  */
-function response(int $code = 200): app\Requests\Response {
+function response(int $code = 200): Requests\Response {
 	return request()->response($code);
 }
 
@@ -369,8 +369,8 @@ function cache(string $key, mixed $default = false): mixed {
  * This function is a shorthand for creating a Carbon instance
  * that represents the current date and time in UTC.
  *
- * @return app\Helper\BaseCarbon Current date and time.
+ * @return Helper\BaseCarbon Current date and time.
  */
-function now(): app\Helper\BaseCarbon {
+function now(): Helper\BaseCarbon {
 	return Carbon::now();
 }

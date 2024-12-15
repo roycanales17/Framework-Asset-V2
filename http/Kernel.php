@@ -1,14 +1,14 @@
 <?php
-
-    use app\Application;
-    use app\Handler\ExceptionHandler;
-    use app\Handler\MiddlewaresHandler;
-    use app\Handler\PageInitializer;
-    use app\Handler\RouteHandler;
-    use http\Exceptions\CustomException;
-    use http\Middleware\Cores;
-
-    # Start the application
+	
+	use Core\Application;
+	use Handler\ExceptionHandler;
+	use Handler\MiddlewaresHandler;
+	use Handler\PageInitializer;
+	use Handler\RouteHandler;
+	use http\Exceptions\CustomException;
+	use http\Middleware\Cores;
+	
+	# Start the application
     return Application::configure('env')
         ->withPageInit(function (PageInitializer $init) {
             $init->siteHeader('/', http\Initializer\Web::class);

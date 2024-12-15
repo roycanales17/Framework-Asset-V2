@@ -2,10 +2,10 @@
 
     namespace http\Middleware;
 
-    use App\Request;
-    use App\Scheme\Middleware;
-
-    class Cores extends Middleware
+    use Core\Request;
+	use Scheme\Middleware;
+	
+	class Cores extends Middleware
     {
         public function handle(Request $request): bool
         {
