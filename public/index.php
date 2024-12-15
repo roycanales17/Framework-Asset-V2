@@ -7,7 +7,7 @@
     spl_autoload_register(fn($class) => file_exists($path = root . '/' . str_replace('\\', '/', $class) . '.php') && require_once $path);
 
     # Built-In Functions
-    foreach (['/app/Standard.php', '/vendor/autoload.php'] as $file) {
+    foreach (['/http/Standards.php','/vendor/autoload.php'] as $file) {
         if (file_exists(root . $file)) {
             require_once root . $file;
         }
