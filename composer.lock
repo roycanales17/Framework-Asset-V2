@@ -4,26 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ec174ac999c0043f8262472092b0d14",
+    "content-hash": "55648d24d727219dcd806c212615d39a",
     "packages": [
         {
             "name": "roy404/reduced-core",
-            "version": "v1.0.1",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roycanales17/Reduced-Core.git",
-                "reference": "d63451ccbe638d3d65d384bff2e192441c221cce"
+                "reference": "c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/d63451ccbe638d3d65d384bff2e192441c221cce",
-                "reference": "d63451ccbe638d3d65d384bff2e192441c221cce",
+                "url": "https://api.github.com/repos/roycanales17/Reduced-Core/zipball/c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1",
+                "reference": "c2e9092515a36f9f503ffffbbbe78c7ff43e4ec1",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0"
             },
             "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Core\\": "Core/",
+                    "Helper\\": "Helper/",
+                    "Scheme\\": "Scheme/",
+                    "Artisan\\": "Artisan/",
+                    "Handler\\": "Handler/",
+                    "Database\\": "Database/",
+                    "Requests\\": "Requests/"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -41,9 +52,9 @@
             ],
             "support": {
                 "issues": "https://github.com/roycanales17/Reduced-Core/issues",
-                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.1"
+                "source": "https://github.com/roycanales17/Reduced-Core/tree/v1.0.4"
             },
-            "time": "2024-12-15T03:21:21+00:00"
+            "time": "2024-12-15T03:57:51+00:00"
         }
     ],
     "packages-dev": [],
@@ -53,7 +64,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
