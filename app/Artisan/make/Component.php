@@ -34,7 +34,7 @@
             $content 	 =	'<?php'.PHP_EOL.PHP_EOL;
             $content 	.=	"\tnamespace includes$namespace;".PHP_EOL.PHP_EOL;
 
-            $content    .=  "\tuse Request;".PHP_EOL;
+            $content    .=  "\tuse Core\Request;".PHP_EOL;
             $content    .=  "\tuse Scheme\Components;".PHP_EOL.PHP_EOL;
 
             $content 	.=	"\tclass $class_name extends Components".PHP_EOL;
@@ -50,7 +50,7 @@
 
             $content 	.=	"\t\tfunction ajax(Request \$request): mixed {".PHP_EOL.PHP_EOL;
             $content 	.=	"\t\t\t// Can remove this function...".PHP_EOL;
-            $content 	.=	"\t\t\treturn \$request->response()->json('Response here...');".PHP_EOL;
+            $content 	.=	"\t\t\treturn \$request->response()->json(['message' => 'Hello World!']);".PHP_EOL;
             $content 	.=	"\t\t}".PHP_EOL;
 
             $content 	.=	"\t}";
