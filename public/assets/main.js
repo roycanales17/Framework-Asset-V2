@@ -41,18 +41,19 @@ class $$ {
             let identifier = '';
             const form = e.target;
             const formData = new FormData(form);
-            const postData = new URLSearchParams();
+            const additionalData = new FormData();
 
             formData.forEach((value, key) => {
                 if (key === '__token__') {
                     identifier = value;
                 } else {
-                    postData.append(key, value);
+                    additionalData.append(key, value);
                 }
             });
 
-            if (loader)
+            if (loader) {
                 this.trigger(loader, true);
+            }
 
             if (this.isSubmitting) {
                 return;
@@ -69,37 +70,40 @@ class $$ {
             fetch('', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'X-App-Component': identifier
                 },
-                body: postData.toString()
-            }).then(response => {
-                if (!response.ok) {
-                    return response.text().then(errorText => {
-                        throwError({
-                            'status': response.status,
-                            'response': errorText
-                        })
-                    });
-                }
+                body: additionalData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(errorText => {
+                            throwError({
+                                status: response.status,
+                                response: errorText
+                            });
+                        });
+                    }
 
-                return response.text().then(data => ({
-                    status: response.status,
-                    response: data
-                }));
-            }).then(data => {
-                if (data) {
-                    this.trigger(success, data);
-                }
-            }).catch(error => {
-                throwError(error, 'Something went wrong.');
-            }).finally(() => {
-                if (loader) {
-                    this.trigger(loader, false);
-                }
+                    return response.text().then(data => ({
+                        status: response.status,
+                        response: data
+                    }));
+                })
+                .then(data => {
+                    if (data) {
+                        this.trigger(success, data);
+                    }
+                })
+                .catch(error => {
+                    throwError(error, 'Something went wrong.');
+                })
+                .finally(() => {
+                    if (loader) {
+                        this.trigger(loader, false);
+                    }
 
-                this.isSubmitting = false;
-            });
+                    this.isSubmitting = false;
+                });
         } catch (e) {
             console.error(e);
         }
